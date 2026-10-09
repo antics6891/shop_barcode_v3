@@ -23,8 +23,9 @@ class SuccessScreen extends StatelessWidget {
           SizedBox(height: 16),
           Text(
             'SUCCESS !',
-            style: TextStyle(fontSize: 32, color: Colors.green.shade800),
+            style: TextStyle(fontSize: 32, color: Colors.green.shade900),
           ),
+          Text('You have clocked in'),
         ],
       ),
     );
