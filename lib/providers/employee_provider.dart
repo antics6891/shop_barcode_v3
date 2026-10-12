@@ -1,4 +1,5 @@
 import 'package:riverpod_annotation/riverpod_annotation.dart';
+import 'package:shop_barcode_scan_v3/providers/stage_provider.dart';
 
 part 'employee_provider.g.dart';
 
@@ -6,10 +7,11 @@ part 'employee_provider.g.dart';
 class Employee extends _$Employee {
   @override
   String build() {
-    return 'Hello';
+    return '';
   }
 
   void setEmp(String emp) {
+    ref.read(stageProvider.notifier).incrementStage();
     state = emp;
   }
 

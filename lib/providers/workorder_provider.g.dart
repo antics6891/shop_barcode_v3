@@ -41,7 +41,7 @@ final class WorkorderProvider
   }
 }
 
-String _$workorderHash() => r'90ca74e23bb9b3b164028c9d9ff198602c4b4f39';
+String _$workorderHash() => r'd0856f9ce94c616ea346abac390cae74f2278f6d';
 
 abstract class _$Workorder extends $Notifier<List<String>> {
   List<String> build();

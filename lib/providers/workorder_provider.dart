@@ -18,4 +18,8 @@ class Workorder extends _$Workorder {
     updatedList.removeWhere((item) => item == wo);
     state = updatedList;
   }
+
+  void clearWos() {
+    state = [];
+  }
 }
