@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shop_barcode_scan_v3/providers/stage_provider.dart';
+import 'package:shop_barcode_scan_v3/providers/workorder_provider.dart';
 
 class WoStep extends ConsumerStatefulWidget {
   const WoStep({super.key});
@@ -11,23 +12,27 @@ class WoStep extends ConsumerStatefulWidget {
 
 class _WoStepState extends ConsumerState<WoStep> {
   final woTextController = TextEditingController();
-  final FocusNode woFocusNode = FocusNode();
+  final woFocusNode = FocusNode();
 
-  List<String> woList = [];
+  // List<String> woList = [];
 
   void handleAddToList(String wo) {
-    setState(() {
-      woList = [...woList, wo];
-      woTextController.clear();
-      woFocusNode.requestFocus();
-    });
+    ref.read(workorderProvider.notifier).addToWos(wo);
+    // setState(() {
+    //   woList = [...woList, wo];
+    // });
+    woTextController.clear();
+    woFocusNode.requestFocus();
   }
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Text('Scan Work Order'),
+        Text(
+          'Scan Work Order',
+          style: TextStyle(fontSize: 22, fontWeight: FontWeight.w400),
+        ),
         TextField(
           focusNode: woFocusNode,
           autofocus: true,
@@ -37,7 +42,7 @@ class _WoStepState extends ConsumerState<WoStep> {
             handleAddToList(value);
           },
         ),
-        for (var i in woList)
+        for (var i in ref.watch(workorderProvider))
           Card(
             color: Colors.white,
             child: Padding(
@@ -48,7 +53,7 @@ class _WoStepState extends ConsumerState<WoStep> {
                   Text('WO#: $i'),
                   IconButton(
                     onPressed: () {
-                      woList.remove(i);
+                      ref.watch(workorderProvider.notifier).removeWo(i);
                     },
                     icon: Icon(Icons.delete_outline_rounded, color: Colors.red),
                   ),
@@ -70,7 +75,14 @@ class _WoStepState extends ConsumerState<WoStep> {
                   ),
                 ),
                 onPressed: () {
-                  ref.read(stageProvider.notifier).incrementStage();
+                  if (woTextController.text.isNotEmpty) {
+                    ref
+                        .read(workorderProvider.notifier)
+                        .addToWos(woTextController.text);
+                    ref.read(stageProvider.notifier).incrementStage();
+                  } else {
+                    ref.read(stageProvider.notifier).incrementStage();
+                  }
                 },
                 child: Row(
                   children: [

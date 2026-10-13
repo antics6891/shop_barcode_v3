@@ -1,21 +1,28 @@
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-import 'package:shop_barcode_scan_v3/providers/stage_provider.dart';
 
 part 'employee_provider.g.dart';
 
+// @riverpod
+// class Employee extends _$Employee {
+//   @override
+//   String build() => '';
+
+//   void setEmp(String emp) {
+//     state = emp;
+//   }
+
+//   void clearEmp() {
+//     state = '';
+//   }
+// }
 @riverpod
-class Employee extends _$Employee {
+class EmployeeNotifier extends _$EmployeeNotifier {
   @override
   String build() {
-    return '';
+    return '999';
   }
 
-  void setEmp(String emp) {
-    ref.read(stageProvider.notifier).incrementStage();
-    state = emp;
-  }
-
-  void clearEmp() {
-    state = '';
+  void setEmployee(String id) {
+    state = id;
   }
 }

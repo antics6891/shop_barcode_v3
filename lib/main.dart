@@ -15,7 +15,21 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Scan Station',
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(colorScheme: .fromSeed(seedColor: Colors.white)),
+      theme: ThemeData(
+        colorScheme: .fromSeed(seedColor: Colors.white),
+        elevatedButtonTheme: ElevatedButtonThemeData(
+          style: ButtonStyle(
+            padding: WidgetStatePropertyAll(EdgeInsets.all(18)),
+            backgroundColor: WidgetStatePropertyAll(Colors.blue.shade700),
+            foregroundColor: WidgetStatePropertyAll(Colors.white),
+            shape: WidgetStatePropertyAll(
+              RoundedRectangleBorder(
+                borderRadius: BorderRadiusGeometry.circular(9),
+              ),
+            ),
+          ),
+        ),
+      ),
       home: const ScanScreen(),
     );
   }

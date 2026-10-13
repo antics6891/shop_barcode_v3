@@ -9,11 +9,12 @@ part of 'employee_provider.dart';
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint, type=warning
 
-@ProviderFor(Employee)
-final employeeProvider = EmployeeProvider._();
+@ProviderFor(EmployeeNotifier)
+final employeeProvider = EmployeeNotifierProvider._();
 
-final class EmployeeProvider extends $NotifierProvider<Employee, String> {
-  EmployeeProvider._()
+final class EmployeeNotifierProvider
+    extends $NotifierProvider<EmployeeNotifier, String> {
+  EmployeeNotifierProvider._()
     : super(
         from: null,
         argument: null,
@@ -25,11 +26,11 @@ final class EmployeeProvider extends $NotifierProvider<Employee, String> {
       );
 
   @override
-  String debugGetCreateSourceHash() => _$employeeHash();
+  String debugGetCreateSourceHash() => _$employeeNotifierHash();
 
   @$internal
   @override
-  Employee create() => Employee();
+  EmployeeNotifier create() => EmployeeNotifier();
 
   /// {@macro riverpod.override_with_value}
   Override overrideWithValue(String value) {
@@ -40,9 +41,9 @@ final class EmployeeProvider extends $NotifierProvider<Employee, String> {
   }
 }
 
-String _$employeeHash() => r'93a1599f9f010f77bb08a229b3863439a44ce773';
+String _$employeeNotifierHash() => r'a5273f44aaca9a4b00916269c2f73209ba5f2c1d';
 
-abstract class _$Employee extends $Notifier<String> {
+abstract class _$EmployeeNotifier extends $Notifier<String> {
   String build();
   @$mustCallSuper
   @override

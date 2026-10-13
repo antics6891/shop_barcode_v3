@@ -73,6 +73,8 @@ class _ScanScreenState extends ConsumerState<ScanScreen> {
               : ConstrainedBox(
                   constraints: BoxConstraints(maxWidth: 600),
                   child: Column(
+                    spacing: 32,
+                    // mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       EasyStepper(
                         showStepBorder: false,
@@ -89,9 +91,32 @@ class _ScanScreenState extends ConsumerState<ScanScreen> {
                           ),
                         ],
                       ),
-                      handleScreen(),
+                      Expanded(child: handleScreen()),
+                      // handleScreen(),
                     ],
                   ),
+                  // child: Center(
+                  //   child: Column(
+                  //     children: [
+                  //       EasyStepper(
+                  //         showStepBorder: false,
+                  //         activeStep: ref.watch(stageProvider),
+                  //         steps: [
+                  //           EasyStep(icon: Icon(Icons.badge), title: '1'),
+                  //           EasyStep(
+                  //             title: '2',
+                  //             icon: Icon(Icons.document_scanner_outlined),
+                  //           ),
+                  //           EasyStep(
+                  //             title: 'Summary',
+                  //             icon: Icon(Icons.summarize_outlined),
+                  //           ),
+                  //         ],
+                  //       ),
+                  //       handleScreen(),
+                  //     ],
+                  //   ),
+                  // ),
                 ),
         ),
       ),
