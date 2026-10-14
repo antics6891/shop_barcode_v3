@@ -1,6 +1,5 @@
 // ignore_for_file: avoid_unnecessary_containers
 
-import 'package:easy_stepper/easy_stepper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shop_barcode_scan_v3/components/id_step.dart';
@@ -76,21 +75,21 @@ class _ScanScreenState extends ConsumerState<ScanScreen> {
                     spacing: 32,
                     // mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      EasyStepper(
-                        showStepBorder: false,
-                        activeStep: ref.watch(stageProvider),
-                        steps: [
-                          EasyStep(icon: Icon(Icons.badge), title: '1'),
-                          EasyStep(
-                            title: '2',
-                            icon: Icon(Icons.document_scanner_outlined),
-                          ),
-                          EasyStep(
-                            title: 'Summary',
-                            icon: Icon(Icons.summarize_outlined),
-                          ),
-                        ],
-                      ),
+                      // EasyStepper(
+                      //   showStepBorder: false,
+                      //   activeStep: ref.watch(stageProvider),
+                      //   steps: [
+                      //     EasyStep(icon: Icon(Icons.badge), title: '1'),
+                      //     EasyStep(
+                      //       title: '2',
+                      //       icon: Icon(Icons.document_scanner_outlined),
+                      //     ),
+                      //     EasyStep(
+                      //       title: 'Summary',
+                      //       icon: Icon(Icons.summarize_outlined),
+                      //     ),
+                      //   ],
+                      // ),
                       Expanded(child: handleScreen()),
                       // handleScreen(),
                     ],

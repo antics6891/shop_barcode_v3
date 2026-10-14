@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shop_barcode_scan_v3/scan_screen.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
-void main() {
+void main() async {
+  await Supabase.initialize(
+    url: 'https://foygqgkfaquhavxptfjl.supabase.co',
+    publishableKey: 'sb_publishable_IXt1vYoPUS-GToOhyR0k-w_y3NC19tJ',
+  );
   runApp(ProviderScope(child: MyApp()));
 }
 

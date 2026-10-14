@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shop_barcode_scan_v3/providers/employee_provider.dart';
 import 'package:shop_barcode_scan_v3/providers/stage_provider.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
 class IdStep extends ConsumerStatefulWidget {
   const IdStep({super.key});
@@ -12,10 +13,28 @@ class IdStep extends ConsumerStatefulWidget {
 
 class _IdStepState extends ConsumerState<IdStep> {
   final idController = TextEditingController();
+  bool canProceed = false;
 
-  void checkEmployee(String id) => {
-    ref.watch(employeeProvider.notifier).setEmployee(id),
-  };
+  void checkEmployee(String id) {
+    final what = Supabase.instance.client
+        .from('emps')
+        .select()
+        .eq('emp_id', id);
+    what.then(
+      (rs) => {
+        if (rs.isNotEmpty)
+          {
+            setState(() {
+              canProceed = true;
+            }),
+          }
+        else
+          {print('Error')},
+      },
+    );
+
+    ref.read(employeeProvider.notifier).setEmployee(id);
+  }
 
   @override
   void initState() {
@@ -50,10 +69,14 @@ class _IdStepState extends ConsumerState<IdStep> {
 
         ElevatedButton(
           style: ElevatedButton.styleFrom(
-            backgroundColor: Colors.blue.shade700,
+            backgroundColor: Colors.blue.shade600
+                
+            disabledBackgroundColor: Colors.amber
           ),
           onPressed: () {
-            ref.read(stageProvider.notifier).incrementStage();
+            canProceed
+                ? ref.read(stageProvider.notifier).incrementStage()
+                : null;
           },
           child: Text('NEXT'),
         ),

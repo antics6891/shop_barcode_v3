@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:shop_barcode_scan_v3/providers/employee_provider.dart';
-import 'package:shop_barcode_scan_v3/providers/workorder_provider.dart';
+import 'package:shop_barcode_scan_v3/models/timecard.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
 class SummaryStep extends ConsumerStatefulWidget {
   const SummaryStep({super.key});
@@ -12,55 +12,60 @@ class SummaryStep extends ConsumerStatefulWidget {
 
 class _SummaryStepState extends ConsumerState<SummaryStep> {
   @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Expanded(
       child: Column(
         children: [
           Text(
-            'Summary',
+            'Current Timecard',
             style: TextStyle(fontSize: 22, fontWeight: FontWeight(400)),
           ),
-          Text('${ref.watch(workorderProvider).length} Pending Scans'),
 
           // Text(ref.watch(workorderProvider).toString()),
           Expanded(
-            child: ListView(
-              children: ref
-                  .watch(workorderProvider)
-                  .map(
-                    (item) => Card(
-                      color: Colors.white,
-                      child: Padding(
-                        padding: const EdgeInsets.all(12.0),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                            Text(
-                              'Employee: ${ref.watch(employeeProvider)}',
-                              style: TextStyle(color: Colors.blue.shade900),
-                            ),
-                            Text(
-                              'WO: $item',
-                              style: TextStyle(color: Colors.blue.shade900),
-                            ),
-                            Text(
-                              'Rout: 40',
-                              style: TextStyle(color: Colors.blue.shade900),
-                            ),
-                            IconButton(
-                              onPressed: () {},
-                              icon: Icon(
-                                Icons.delete_outline_outlined,
-                                color: Colors.red,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                  )
-                  .toList(),
-            ),
+            child: Text('here'),
+            // child: ListView(
+            //   children: ref
+            //       .watch(workorderProvider)
+            //       .map(
+            //         (item) => Card(
+            //           color: Colors.white,
+            //           child: Padding(
+            //             padding: const EdgeInsets.all(12.0),
+            //             child: Row(
+            //               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            //               children: [
+            //                 Text(
+            //                   'Employee: ${ref.watch(employeeProvider)}',
+            //                   style: TextStyle(color: Colors.blue.shade900),
+            //                 ),
+            //                 Text(
+            //                   'WO: $item',
+            //                   style: TextStyle(color: Colors.blue.shade900),
+            //                 ),
+            //                 Text(
+            //                   'Rout: 40',
+            //                   style: TextStyle(color: Colors.blue.shade900),
+            //                 ),
+            //                 IconButton(
+            //                   onPressed: () {},
+            //                   icon: Icon(
+            //                     Icons.delete_outline_outlined,
+            //                     color: Colors.red,
+            //                   ),
+            //                 ),
+            //               ],
+            //             ),
+            //           ),
+            //         ),
+            //       )
+            //       .toList(),
+            // ),
           ),
           Spacer(),
           Row(
