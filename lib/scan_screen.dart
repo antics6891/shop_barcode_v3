@@ -2,11 +2,15 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:shop_barcode_scan_v3/components/empty_timecard.dart';
 import 'package:shop_barcode_scan_v3/components/id_step.dart';
 import 'package:shop_barcode_scan_v3/components/reset_button.dart';
 import 'package:shop_barcode_scan_v3/components/summary_step.dart';
 import 'package:shop_barcode_scan_v3/components/wo_step.dart';
+import 'package:shop_barcode_scan_v3/providers/employee_provider.dart';
 import 'package:shop_barcode_scan_v3/providers/stage_provider.dart';
+import 'package:shop_barcode_scan_v3/providers/timecard_provider.dart';
+import 'package:shop_barcode_scan_v3/providers/workorder_provider.dart';
 import 'package:shop_barcode_scan_v3/success_screen.dart';
 
 class ScanScreen extends ConsumerStatefulWidget {
@@ -33,7 +37,7 @@ class _ScanScreenState extends ConsumerState<ScanScreen> {
       case 0:
         what = IdStep();
         break;
-      case 1:
+      case >= 1:
         what = WoStep();
       case 2:
         what = SummaryStep();
@@ -60,7 +64,7 @@ class _ScanScreenState extends ConsumerState<ScanScreen> {
 
       appBar: AppBar(
         actionsPadding: EdgeInsets.only(right: 16),
-        actions: [ResetButton()],
+        actions: [Text(ref.watch(employeeProvider).toString())],
         title: Text('Scan Station'),
         backgroundColor: Colors.white,
       ),
@@ -90,7 +94,26 @@ class _ScanScreenState extends ConsumerState<ScanScreen> {
                       //     ),
                       //   ],
                       // ),
-                      Expanded(child: handleScreen()),
+                      // Expanded(child: handleScreen()),
+                      Expanded(
+                        child: Column(
+                          children: [
+                            ref.watch(employeeProvider).isEmpty
+                                ? IdStep()
+                                : Text(
+                                    'Employee: ${ref.read(employeeProvider)}',
+                                  ),
+                            ref.watch(workorderProvider).isEmpty
+                                ? WoStep()
+                                : Text(
+                                    '${ref.read(employeeProvider).length.toString()} Pending Orders',
+                                  ),
+                            ref.watch(timecardProvider).isEmpty
+                                ? EmptyTimecard()
+                                : Text('stuff'),
+                          ],
+                        ),
+                      ),
                       // handleScreen(),
                     ],
                   ),

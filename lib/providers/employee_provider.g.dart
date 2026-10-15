@@ -41,7 +41,7 @@ final class EmployeeNotifierProvider
   }
 }
 
-String _$employeeNotifierHash() => r'a5273f44aaca9a4b00916269c2f73209ba5f2c1d';
+String _$employeeNotifierHash() => r'92c907a255d9fce991f0ab8416a1cdfa551e2bb3';
 
 abstract class _$EmployeeNotifier extends $Notifier<String> {
   String build();

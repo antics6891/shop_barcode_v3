@@ -16,24 +16,7 @@ class _IdStepState extends ConsumerState<IdStep> {
   bool canProceed = false;
 
   void checkEmployee(String id) {
-    final what = Supabase.instance.client
-        .from('emps')
-        .select()
-        .eq('emp_id', id);
-    what.then(
-      (rs) => {
-        if (rs.isNotEmpty)
-          {
-            setState(() {
-              canProceed = true;
-            }),
-          }
-        else
-          {print('Error')},
-      },
-    );
-
-    ref.read(employeeProvider.notifier).setEmployee(id);
+    ref.read(employeeProvider.notifier).checkEmployee(id);
   }
 
   @override
@@ -66,20 +49,19 @@ class _IdStepState extends ConsumerState<IdStep> {
             ),
           ),
         ),
-
-        ElevatedButton(
-          style: ElevatedButton.styleFrom(
-            backgroundColor: Colors.blue.shade600
-                
-            disabledBackgroundColor: Colors.amber
-          ),
-          onPressed: () {
-            canProceed
-                ? ref.read(stageProvider.notifier).incrementStage()
-                : null;
-          },
-          child: Text('NEXT'),
-        ),
+        canProceed
+            ? ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.blue.shade600,
+                ),
+                onPressed: () {
+                  canProceed
+                      ? ref.read(stageProvider.notifier).incrementStage()
+                      : null;
+                },
+                child: Text('NEXT'),
+              )
+            : Container(),
       ],
     );
   }
