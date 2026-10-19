@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shop_barcode_scan_v3/components/empty_timecard.dart';
-import 'package:shop_barcode_scan_v3/models/timecard.dart';
 import 'package:shop_barcode_scan_v3/providers/timecard_provider.dart';
-import 'package:supabase_flutter/supabase_flutter.dart';
 
 class SummaryStep extends ConsumerStatefulWidget {
   const SummaryStep({super.key});

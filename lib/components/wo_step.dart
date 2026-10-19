@@ -27,75 +27,52 @@ class _WoStepState extends ConsumerState<WoStep> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Text(
-          'Scan Work Order',
-          style: TextStyle(fontSize: 22, fontWeight: FontWeight.w400),
-        ),
-        TextField(
-          focusNode: woFocusNode,
-          autofocus: true,
-          decoration: InputDecoration(border: OutlineInputBorder()),
-          controller: woTextController,
-          onSubmitted: (value) {
-            handleAddToList(value);
-          },
-        ),
-        for (var i in ref.watch(workorderProvider))
-          Card(
-            color: Colors.white,
-            child: Padding(
-              padding: const EdgeInsets.all(12.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text('WO#: $i'),
-                  IconButton(
-                    onPressed: () {
-                      ref.watch(workorderProvider.notifier).removeWo(i);
-                    },
-                    icon: Icon(Icons.delete_outline_rounded, color: Colors.red),
-                  ),
-                ],
-              ),
-            ),
+    return ConstrainedBox(
+      constraints: BoxConstraints(maxWidth: 400),
+      child: Column(
+        spacing: 16,
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Text(
+            'Scan Work Order',
+            style: TextStyle(fontSize: 22, fontWeight: FontWeight.w400),
           ),
-        Padding(
-          padding: const EdgeInsets.only(top: 24),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: [
-              ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.blue.shade700,
-                  foregroundColor: Colors.white,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadiusGeometry.circular(9),
-                  ),
-                ),
-                onPressed: () {
-                  if (woTextController.text.isNotEmpty) {
-                    ref
-                        .read(workorderProvider.notifier)
-                        .addToWos(woTextController.text);
-                    ref.read(stageProvider.notifier).incrementStage();
-                  } else {
-                    ref.read(stageProvider.notifier).incrementStage();
-                  }
-                },
+          TextField(
+            focusNode: woFocusNode,
+            autofocus: true,
+            decoration: InputDecoration(border: OutlineInputBorder()),
+            controller: woTextController,
+            onSubmitted: (value) {
+              handleAddToList(value);
+            },
+          ),
+          ref.watch(workorderProvider).isNotEmpty
+              ? Text('Pending Scans')
+              : Container(),
+          for (var i in ref.watch(workorderProvider))
+            Card(
+              color: Colors.white,
+              child: Padding(
+                padding: const EdgeInsets.all(12.0),
                 child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text('NEXT'),
-                    SizedBox(width: 8),
-                    Icon(Icons.chevron_right_sharp, size: 22),
+                    Text('WO#: $i'),
+                    IconButton(
+                      onPressed: () {
+                        ref.watch(workorderProvider.notifier).removeWo(i);
+                      },
+                      icon: Icon(
+                        Icons.delete_outline_rounded,
+                        color: Colors.red,
+                      ),
+                    ),
                   ],
                 ),
               ),
-            ],
-          ),
-        ),
-      ],
+            ),
+        ],
+      ),
     );
   }
 }
