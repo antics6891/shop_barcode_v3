@@ -13,7 +13,7 @@ part of 'employee_provider.dart';
 final employeeProvider = EmployeeNotifierProvider._();
 
 final class EmployeeNotifierProvider
-    extends $NotifierProvider<EmployeeNotifier, String> {
+    extends $NotifierProvider<EmployeeNotifier, Employee?> {
   EmployeeNotifierProvider._()
     : super(
         from: null,
@@ -33,27 +33,27 @@ final class EmployeeNotifierProvider
   EmployeeNotifier create() => EmployeeNotifier();
 
   /// {@macro riverpod.override_with_value}
-  Override overrideWithValue(String value) {
+  Override overrideWithValue(Employee? value) {
     return $ProviderOverride(
       origin: this,
-      providerOverride: $SyncValueProvider<String>(value),
+      providerOverride: $SyncValueProvider<Employee?>(value),
     );
   }
 }
 
-String _$employeeNotifierHash() => r'92c907a255d9fce991f0ab8416a1cdfa551e2bb3';
+String _$employeeNotifierHash() => r'810049f15385ff2f25e2bda4fda3b659d9db3184';
 
-abstract class _$EmployeeNotifier extends $Notifier<String> {
-  String build();
+abstract class _$EmployeeNotifier extends $Notifier<Employee?> {
+  Employee? build();
   @$mustCallSuper
   @override
   WhenComplete runBuild() {
-    final ref = this.ref as $Ref<String, String>;
+    final ref = this.ref as $Ref<Employee?, Employee?>;
     final element =
         ref.element
             as $ClassProviderElement<
-              AnyNotifier<String, String>,
-              String,
+              AnyNotifier<Employee?, Employee?>,
+              Employee?,
               Object?,
               Object?
             >;

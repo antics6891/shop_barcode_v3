@@ -8,7 +8,6 @@ import 'package:shop_barcode_scan_v3/components/wo_step.dart';
 import 'package:shop_barcode_scan_v3/providers/employee_provider.dart';
 import 'package:shop_barcode_scan_v3/providers/stage_provider.dart';
 import 'package:shop_barcode_scan_v3/providers/workorder_provider.dart';
-import 'package:supabase_flutter/supabase_flutter.dart';
 
 class ScanScreen extends ConsumerStatefulWidget {
   const ScanScreen({super.key});
@@ -44,8 +43,6 @@ class _ScanScreenState extends ConsumerState<ScanScreen> {
     }
     return what;
   }
-
-  final _future = Supabase.instance.client.from('').select();
 
   @override
   void initState() {

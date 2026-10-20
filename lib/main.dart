@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:shop_barcode_scan_v3/scan_screen.dart';
+import 'package:shop_barcode_scan_v3/screens/attendance/attendance.dart';
+// import 'package:shop_barcode_scan_v3/scan_screen.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
+import 'package:toastification/toastification.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -18,25 +20,28 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Scan Station',
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        colorScheme: .fromSeed(seedColor: Colors.white),
-        elevatedButtonTheme: ElevatedButtonThemeData(
-          style: ButtonStyle(
-            padding: WidgetStatePropertyAll(EdgeInsets.all(18)),
-            backgroundColor: WidgetStatePropertyAll(Colors.blue.shade700),
-            foregroundColor: WidgetStatePropertyAll(Colors.white),
-            shape: WidgetStatePropertyAll(
-              RoundedRectangleBorder(
-                borderRadius: BorderRadiusGeometry.circular(9),
+    return ToastificationWrapper(
+      child: MaterialApp(
+        title: 'Scan Station',
+        debugShowCheckedModeBanner: false,
+        theme: ThemeData(
+          colorScheme: .fromSeed(seedColor: Colors.white),
+          elevatedButtonTheme: ElevatedButtonThemeData(
+            style: ButtonStyle(
+              padding: WidgetStatePropertyAll(EdgeInsets.all(18)),
+              backgroundColor: WidgetStatePropertyAll(Colors.blue.shade700),
+              foregroundColor: WidgetStatePropertyAll(Colors.white),
+              shape: WidgetStatePropertyAll(
+                RoundedRectangleBorder(
+                  borderRadius: BorderRadiusGeometry.circular(9),
+                ),
               ),
             ),
           ),
         ),
+        // home: const ScanScreen(),
+        home: Attendance(),
       ),
-      home: const ScanScreen(),
     );
   }
 }
