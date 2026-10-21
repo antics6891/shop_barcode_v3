@@ -5,10 +5,16 @@ part 'timecard.freezed.dart';
 part 'timecard.g.dart';
 
 @freezed
-abstract class Timecard with _$Timecard {
-  const factory Timecard({required String first, required String last}) =
-      _Timecard;
+abstract class TimecardModel with _$TimecardModel {
+  const factory TimecardModel({
+    required int id,
+    required String uuid,
+    DateTime? clock_in,
+    DateTime? clock_out,
+    DateTime? lunch_start,
+    DateTime? lunch_end,
+  }) = _Timecard;
 
-  factory Timecard.fromJson(Map<String, dynamic> json) =>
-      _$TimecardFromJson(json);
+  factory TimecardModel.fromJson(Map<String, dynamic> json) =>
+      _$TimecardModelFromJson(json);
 }

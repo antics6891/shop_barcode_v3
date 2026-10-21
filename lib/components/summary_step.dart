@@ -19,7 +19,7 @@ class _SummaryStepState extends ConsumerState<SummaryStep> {
   @override
   Widget build(BuildContext context) {
     return Expanded(
-      child: ref.watch(timecardProvider).isEmpty
+      child: ref.watch(timecardProvider)!.id.isNaN
           ? EmptyTimecard()
           : Text('data'),
       // child: Column(

@@ -13,7 +13,7 @@ part of 'timecard_provider.dart';
 final timecardProvider = TimecardProvider._();
 
 final class TimecardProvider
-    extends $NotifierProvider<Timecard, List<dynamic>> {
+    extends $NotifierProvider<Timecard, TimecardModel?> {
   TimecardProvider._()
     : super(
         from: null,
@@ -33,27 +33,27 @@ final class TimecardProvider
   Timecard create() => Timecard();
 
   /// {@macro riverpod.override_with_value}
-  Override overrideWithValue(List<dynamic> value) {
+  Override overrideWithValue(TimecardModel? value) {
     return $ProviderOverride(
       origin: this,
-      providerOverride: $SyncValueProvider<List<dynamic>>(value),
+      providerOverride: $SyncValueProvider<TimecardModel?>(value),
     );
   }
 }
 
-String _$timecardHash() => r'cda7c3b6f34c414cc044d5911e4701948620dc30';
+String _$timecardHash() => r'8b3fb71e0ed5e57a2ed3b444100498d959a2492f';
 
-abstract class _$Timecard extends $Notifier<List<dynamic>> {
-  List<dynamic> build();
+abstract class _$Timecard extends $Notifier<TimecardModel?> {
+  TimecardModel? build();
   @$mustCallSuper
   @override
   WhenComplete runBuild() {
-    final ref = this.ref as $Ref<List<dynamic>, List<dynamic>>;
+    final ref = this.ref as $Ref<TimecardModel?, TimecardModel?>;
     final element =
         ref.element
             as $ClassProviderElement<
-              AnyNotifier<List<dynamic>, List<dynamic>>,
-              List<dynamic>,
+              AnyNotifier<TimecardModel?, TimecardModel?>,
+              TimecardModel?,
               Object?,
               Object?
             >;

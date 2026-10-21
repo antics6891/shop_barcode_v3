@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:shop_barcode_scan_v3/providers/employee_provider.dart';
+import 'package:shop_barcode_scan_v3/providers/timecard_provider.dart';
 import 'package:shop_barcode_scan_v3/screens/attendance/components/clock_in_btn.dart';
 import 'package:shop_barcode_scan_v3/screens/attendance/components/clock_out_btn.dart';
 import 'package:shop_barcode_scan_v3/screens/attendance/components/id_input.dart';
@@ -39,28 +41,40 @@ class _AttendanceState extends ConsumerState<Attendance> {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                ConstrainedBox(
-                  constraints: BoxConstraints(maxWidth: 300),
-                  child: IdInput(),
-                ),
+                ref.watch(timecardProvider) == null
+                    ? ConstrainedBox(
+                        constraints: BoxConstraints(maxWidth: 300),
+                        child: IdInput(),
+                      )
+                    : Text(ref.watch(employeeProvider)!.firstName.toString()),
               ],
             ),
-            // Row(
-            //   mainAxisAlignment: MainAxisAlignment.center,
-            //   children: [ClockInBtn()],
-            // ),
-            // Row(
-            //   mainAxisAlignment: MainAxisAlignment.center,
-            //   children: [LunchStartBtn()],
-            // ),
-            // Row(
-            //   mainAxisAlignment: MainAxisAlignment.center,
-            //   children: [LunchEndBtn()],
-            // ),
-            // Row(
-            //   mainAxisAlignment: MainAxisAlignment.center,
-            //   children: [ClockOutBtn()],
-            // ),
+            ref.watch(timecardProvider)!.clock_in == null
+                ? ClockInBtn()
+                : Text(
+                    'CLOCK IN: ${ref.read(timecardProvider)!.clock_in!.toLocal()}',
+                  ),
+
+            // ref.watch(timecardProvider)!.clock_in != null &&
+            //         ref.watch(timecardProvider)!.lunch_start == null
+            //     ? LunchStartBtn()
+            //     : ref.watch(timecardProvider)!.lunch_start != null
+            //     ? Text(
+            //         'Lunch Start: ${ref.watch(timecardProvider)!.lunch_start.toString()}',
+            //       )
+            //     : Container(),
+            // ref.watch(timecardProvider)!.clock_in != null &&
+            //         ref.watch(timecardProvider)!.lunch_end != null
+            //     ? LunchStartBtn()
+            //     : ref.watch(timecardProvider)!.lunch_end != null
+            //     ? Text(
+            //         'Lunch End: ${ref.watch(timecardProvider)!.lunch_end.toString()}',
+            //       )
+            //     : Container(),
+            // ref.watch(timecardProvider)!.clock_in != null &&
+            //         ref.watch(timecardProvider)!.clock_out == null
+            //     ? ClockOutBtn()
+            //     : Container(),
           ],
         ),
       ),

@@ -18,7 +18,6 @@ class _IdStepState extends ConsumerState<IdStep> {
       isLoading = true;
     });
     ref.read(employeeProvider.notifier).checkEmployee(id);
-    print(ref.read(employeeProvider));
   }
 
   @override

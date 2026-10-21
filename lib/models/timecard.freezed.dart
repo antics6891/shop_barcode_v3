@@ -12,56 +12,63 @@ part of 'timecard.dart';
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // dart format off
 T _$identity<T>(T value) => value;
+TimecardModel _$TimecardModelFromJson(
+  Map<String, dynamic> json
+) {
+    return _Timecard.fromJson(
+      json
+    );
+}
 
 /// @nodoc
-mixin _$Timecard implements DiagnosticableTreeMixin {
+mixin _$TimecardModel implements DiagnosticableTreeMixin {
 
- String get first; String get last;
-/// Create a copy of Timecard
+ int get id; String get uuid; DateTime? get clock_in; DateTime? get clock_out; DateTime? get lunch_start; DateTime? get lunch_end;
+/// Create a copy of TimecardModel
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
 @pragma('vm:prefer-inline')
-$TimecardCopyWith<Timecard> get copyWith => _$TimecardCopyWithImpl<Timecard>(this as Timecard, _$identity);
+$TimecardModelCopyWith<TimecardModel> get copyWith => _$TimecardModelCopyWithImpl<TimecardModel>(this as TimecardModel, _$identity);
 
-  /// Serializes this Timecard to a JSON map.
+  /// Serializes this TimecardModel to a JSON map.
   Map<String, dynamic> toJson();
 
 @override
 void debugFillProperties(DiagnosticPropertiesBuilder properties) {
-  final _this = this as Timecard;
+  final _this = this as TimecardModel;
   properties
-    ..add(DiagnosticsProperty('type', 'Timecard'))
-    ..add(DiagnosticsProperty('first', _this.first))..add(DiagnosticsProperty('last', _this.last));
+    ..add(DiagnosticsProperty('type', 'TimecardModel'))
+    ..add(DiagnosticsProperty('id', _this.id))..add(DiagnosticsProperty('uuid', _this.uuid))..add(DiagnosticsProperty('clock_in', _this.clock_in))..add(DiagnosticsProperty('clock_out', _this.clock_out))..add(DiagnosticsProperty('lunch_start', _this.lunch_start))..add(DiagnosticsProperty('lunch_end', _this.lunch_end));
 }
 
 @override
 bool operator ==(Object other) {
-  final _this = this as Timecard;
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is Timecard&&(identical(other.first, _this.first) || other.first == _this.first)&&(identical(other.last, _this.last) || other.last == _this.last));
+  final _this = this as TimecardModel;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is TimecardModel&&(identical(other.id, _this.id) || other.id == _this.id)&&(identical(other.uuid, _this.uuid) || other.uuid == _this.uuid)&&(identical(other.clock_in, _this.clock_in) || other.clock_in == _this.clock_in)&&(identical(other.clock_out, _this.clock_out) || other.clock_out == _this.clock_out)&&(identical(other.lunch_start, _this.lunch_start) || other.lunch_start == _this.lunch_start)&&(identical(other.lunch_end, _this.lunch_end) || other.lunch_end == _this.lunch_end));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
 int get hashCode {
-  final _this = this as Timecard;
-  return Object.hash(runtimeType,_this.first,_this.last);
+  final _this = this as TimecardModel;
+  return Object.hash(runtimeType,_this.id,_this.uuid,_this.clock_in,_this.clock_out,_this.lunch_start,_this.lunch_end);
 }
 
 @override
 String toString({ DiagnosticLevel minLevel = DiagnosticLevel.info }) {
-  final _this = this as Timecard;
-  return 'Timecard(first: ${_this.first}, last: ${_this.last})';
+  final _this = this as TimecardModel;
+  return 'TimecardModel(id: ${_this.id}, uuid: ${_this.uuid}, clock_in: ${_this.clock_in}, clock_out: ${_this.clock_out}, lunch_start: ${_this.lunch_start}, lunch_end: ${_this.lunch_end})';
 }
 
 
 }
 
 /// @nodoc
-abstract mixin class $TimecardCopyWith<$Res>  {
-  factory $TimecardCopyWith(Timecard value, $Res Function(Timecard) _then) = _$TimecardCopyWithImpl;
+abstract mixin class $TimecardModelCopyWith<$Res>  {
+  factory $TimecardModelCopyWith(TimecardModel value, $Res Function(TimecardModel) _then) = _$TimecardModelCopyWithImpl;
 @useResult
 $Res call({
- String first, String last
+ int id, String uuid, DateTime? clock_in, DateTime? clock_out, DateTime? lunch_start, DateTime? lunch_end
 });
 
 
@@ -69,28 +76,32 @@ $Res call({
 
 }
 /// @nodoc
-class _$TimecardCopyWithImpl<$Res>
-    implements $TimecardCopyWith<$Res> {
-  _$TimecardCopyWithImpl(this._self, this._then);
+class _$TimecardModelCopyWithImpl<$Res>
+    implements $TimecardModelCopyWith<$Res> {
+  _$TimecardModelCopyWithImpl(this._self, this._then);
 
-  final Timecard _self;
-  final $Res Function(Timecard) _then;
+  final TimecardModel _self;
+  final $Res Function(TimecardModel) _then;
 
-/// Create a copy of Timecard
+/// Create a copy of TimecardModel
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? first = null,Object? last = null,}) {
-  return _then(Timecard(
-first: null == first ? _self.first : first // ignore: cast_nullable_to_non_nullable
-as String,last: null == last ? _self.last : last // ignore: cast_nullable_to_non_nullable
-as String,
+@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? uuid = null,Object? clock_in = freezed,Object? clock_out = freezed,Object? lunch_start = freezed,Object? lunch_end = freezed,}) {
+  return _then(TimecardModel(
+id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
+as int,uuid: null == uuid ? _self.uuid : uuid // ignore: cast_nullable_to_non_nullable
+as String,clock_in: freezed == clock_in ? _self.clock_in : clock_in // ignore: cast_nullable_to_non_nullable
+as DateTime?,clock_out: freezed == clock_out ? _self.clock_out : clock_out // ignore: cast_nullable_to_non_nullable
+as DateTime?,lunch_start: freezed == lunch_start ? _self.lunch_start : lunch_start // ignore: cast_nullable_to_non_nullable
+as DateTime?,lunch_end: freezed == lunch_end ? _self.lunch_end : lunch_end // ignore: cast_nullable_to_non_nullable
+as DateTime?,
   ));
 }
 
 }
 
 
-/// Adds pattern-matching-related methods to [Timecard].
-extension TimecardPatterns on Timecard {
+/// Adds pattern-matching-related methods to [TimecardModel].
+extension TimecardModelPatterns on TimecardModel {
 /// A variant of `map` that fallback to returning `orElse`.
 ///
 /// It is equivalent to doing:
@@ -167,10 +178,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String first,  String last)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( int id,  String uuid,  DateTime? clock_in,  DateTime? clock_out,  DateTime? lunch_start,  DateTime? lunch_end)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _Timecard() when $default != null:
-return $default(_that.first,_that.last);case _:
+return $default(_that.id,_that.uuid,_that.clock_in,_that.clock_out,_that.lunch_start,_that.lunch_end);case _:
   return orElse();
 
 }
@@ -188,10 +199,10 @@ return $default(_that.first,_that.last);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String first,  String last)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( int id,  String uuid,  DateTime? clock_in,  DateTime? clock_out,  DateTime? lunch_start,  DateTime? lunch_end)  $default,) {final _that = this;
 switch (_that) {
 case _Timecard():
-return $default(_that.first,_that.last);case _:
+return $default(_that.id,_that.uuid,_that.clock_in,_that.clock_out,_that.lunch_start,_that.lunch_end);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -208,10 +219,10 @@ return $default(_that.first,_that.last);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String first,  String last)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( int id,  String uuid,  DateTime? clock_in,  DateTime? clock_out,  DateTime? lunch_start,  DateTime? lunch_end)?  $default,) {final _that = this;
 switch (_that) {
 case _Timecard() when $default != null:
-return $default(_that.first,_that.last);case _:
+return $default(_that.id,_that.uuid,_that.clock_in,_that.clock_out,_that.lunch_start,_that.lunch_end);case _:
   return null;
 
 }
@@ -222,14 +233,18 @@ return $default(_that.first,_that.last);case _:
 /// @nodoc
 @JsonSerializable()
 
-class _Timecard with DiagnosticableTreeMixin implements Timecard {
-  const _Timecard({required this.first, required this.last});
+class _Timecard with DiagnosticableTreeMixin implements TimecardModel {
+  const _Timecard({required this.id, required this.uuid, this.clock_in, this.clock_out, this.lunch_start, this.lunch_end});
   factory _Timecard.fromJson(Map<String, dynamic> json) => _$TimecardFromJson(json);
 
-@override final  String first;
-@override final  String last;
+@override final  int id;
+@override final  String uuid;
+@override final  DateTime? clock_in;
+@override final  DateTime? clock_out;
+@override final  DateTime? lunch_start;
+@override final  DateTime? lunch_end;
 
-/// Create a copy of Timecard
+/// Create a copy of TimecardModel
 /// with the given fields replaced by the non-null parameter values.
 @override @JsonKey(includeFromJson: false, includeToJson: false)
 @pragma('vm:prefer-inline')
@@ -242,35 +257,35 @@ Map<String, dynamic> toJson() {
 @override
 void debugFillProperties(DiagnosticPropertiesBuilder properties) {
     properties
-    ..add(DiagnosticsProperty('type', 'Timecard'))
-    ..add(DiagnosticsProperty('first', first))..add(DiagnosticsProperty('last', last));
+    ..add(DiagnosticsProperty('type', 'TimecardModel'))
+    ..add(DiagnosticsProperty('id', id))..add(DiagnosticsProperty('uuid', uuid))..add(DiagnosticsProperty('clock_in', clock_in))..add(DiagnosticsProperty('clock_out', clock_out))..add(DiagnosticsProperty('lunch_start', lunch_start))..add(DiagnosticsProperty('lunch_end', lunch_end));
 }
 
 @override
 bool operator ==(Object other) {
-    return identical(this, other) || (other.runtimeType == runtimeType&&other is _Timecard&&(identical(other.first, first) || other.first == first)&&(identical(other.last, last) || other.last == last));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _Timecard&&(identical(other.id, id) || other.id == id)&&(identical(other.uuid, uuid) || other.uuid == uuid)&&(identical(other.clock_in, clock_in) || other.clock_in == clock_in)&&(identical(other.clock_out, clock_out) || other.clock_out == clock_out)&&(identical(other.lunch_start, lunch_start) || other.lunch_start == lunch_start)&&(identical(other.lunch_end, lunch_end) || other.lunch_end == lunch_end));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
 int get hashCode {
-    return Object.hash(runtimeType,first,last);
+    return Object.hash(runtimeType,id,uuid,clock_in,clock_out,lunch_start,lunch_end);
 }
 
 @override
 String toString({ DiagnosticLevel minLevel = DiagnosticLevel.info }) {
-    return 'Timecard(first: $first, last: $last)';
+    return 'TimecardModel(id: $id, uuid: $uuid, clock_in: $clock_in, clock_out: $clock_out, lunch_start: $lunch_start, lunch_end: $lunch_end)';
 }
 
 
 }
 
 /// @nodoc
-abstract mixin class _$TimecardCopyWith<$Res> implements $TimecardCopyWith<$Res> {
+abstract mixin class _$TimecardCopyWith<$Res> implements $TimecardModelCopyWith<$Res> {
   factory _$TimecardCopyWith(_Timecard value, $Res Function(_Timecard) _then) = __$TimecardCopyWithImpl;
 @override @useResult
 $Res call({
- String first, String last
+ int id, String uuid, DateTime? clock_in, DateTime? clock_out, DateTime? lunch_start, DateTime? lunch_end
 });
 
 
@@ -285,13 +300,17 @@ class __$TimecardCopyWithImpl<$Res>
   final _Timecard _self;
   final $Res Function(_Timecard) _then;
 
-/// Create a copy of Timecard
+/// Create a copy of TimecardModel
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? first = null,Object? last = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? uuid = null,Object? clock_in = freezed,Object? clock_out = freezed,Object? lunch_start = freezed,Object? lunch_end = freezed,}) {
   return _then(_Timecard(
-first: null == first ? _self.first : first // ignore: cast_nullable_to_non_nullable
-as String,last: null == last ? _self.last : last // ignore: cast_nullable_to_non_nullable
-as String,
+id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
+as int,uuid: null == uuid ? _self.uuid : uuid // ignore: cast_nullable_to_non_nullable
+as String,clock_in: freezed == clock_in ? _self.clock_in : clock_in // ignore: cast_nullable_to_non_nullable
+as DateTime?,clock_out: freezed == clock_out ? _self.clock_out : clock_out // ignore: cast_nullable_to_non_nullable
+as DateTime?,lunch_start: freezed == lunch_start ? _self.lunch_start : lunch_start // ignore: cast_nullable_to_non_nullable
+as DateTime?,lunch_end: freezed == lunch_end ? _self.lunch_end : lunch_end // ignore: cast_nullable_to_non_nullable
+as DateTime?,
   ));
 }
 

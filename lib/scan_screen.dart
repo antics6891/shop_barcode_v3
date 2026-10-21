@@ -7,6 +7,7 @@ import 'package:shop_barcode_scan_v3/components/summary_step.dart';
 import 'package:shop_barcode_scan_v3/components/wo_step.dart';
 import 'package:shop_barcode_scan_v3/providers/employee_provider.dart';
 import 'package:shop_barcode_scan_v3/providers/stage_provider.dart';
+import 'package:shop_barcode_scan_v3/providers/timecard_provider.dart';
 import 'package:shop_barcode_scan_v3/providers/workorder_provider.dart';
 
 class ScanScreen extends ConsumerStatefulWidget {
@@ -71,16 +72,7 @@ class _ScanScreenState extends ConsumerState<ScanScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             spacing: 16,
-            children: [
-              ref.watch(employeeProvider).isEmpty
-                  ? IdStep()
-                  : Text(ref.watch(employeeProvider)),
-              WoStep(),
-              ref.watch(employeeProvider).isNotEmpty &&
-                      ref.watch(workorderProvider).isNotEmpty
-                  ? ElevatedButton(onPressed: () {}, child: Text('SUBMIT'))
-                  : Container(),
-            ],
+            children: [Text('here')],
           ),
         ),
       ),
