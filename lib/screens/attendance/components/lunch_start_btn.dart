@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:shop_barcode_scan_v3/providers/timecard_provider.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
 class LunchStartBtn extends ConsumerWidget {
   const LunchStartBtn({super.key});
@@ -15,7 +17,13 @@ class LunchStartBtn extends ConsumerWidget {
             backgroundColor: Colors.pink,
             padding: EdgeInsets.all(21),
           ),
-          onPressed: () {},
+          onPressed: () async {
+            final res = await Supabase.instance.client
+                .from('attendance')
+                .update({'lunch_start': DateTime.now().toIso8601String()})
+                .eq('id', ref.watch(timecardProvider)!.id);
+            print(res);
+          },
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:shop_barcode_scan_v3/providers/timecard_provider.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
 class ClockOutBtn extends ConsumerWidget {
   const ClockOutBtn({super.key});
@@ -15,7 +17,14 @@ class ClockOutBtn extends ConsumerWidget {
             padding: EdgeInsets.all(21),
             backgroundColor: Colors.green.shade600,
           ),
-          onPressed: () {},
+          onPressed: () async {
+            final res = await Supabase.instance.client
+                .from('attendance')
+                .update({'clock_out': DateTime.now().toIso8601String()})
+                .eq('id', ref.watch(timecardProvider)!.id)
+                .select();
+            print(res);
+          },
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [

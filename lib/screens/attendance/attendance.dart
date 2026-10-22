@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shop_barcode_scan_v3/providers/employee_provider.dart';
 import 'package:shop_barcode_scan_v3/providers/timecard_provider.dart';
@@ -17,6 +16,49 @@ class Attendance extends ConsumerStatefulWidget {
 }
 
 class _AttendanceState extends ConsumerState<Attendance> {
+  Widget _buidStatusText() {
+    if (ref.watch(timecardProvider) == null ||
+        ref.watch(timecardProvider)!.clock_in == null) {
+      return Text('Status: Not Clocked In');
+    }
+    if (ref.watch(timecardProvider)!.clock_out != null) {
+      return Text('Status: Shift Completed for Today');
+    }
+    if (ref.watch(timecardProvider)!.lunch_start != null &&
+        ref.watch(timecardProvider)!.lunch_end == null) {
+      return Text('Status: Currently On Lunch');
+    }
+    return Text('Status: Working');
+  }
+
+  Widget _buildActionBtns() {
+    if (ref.watch(timecardProvider) == null ||
+        ref.watch(timecardProvider)!.clock_in == null) {
+      return ClockInBtn();
+    }
+    if (ref.watch(timecardProvider)!.clock_out != null) {
+      return Text('You are done for the day!');
+    }
+    List<Widget> buttons = [];
+    buttons.add(ClockOutBtn());
+    if (ref.watch(timecardProvider)!.lunch_start == null) {
+      buttons.add(LunchStartBtn());
+    } else if (ref.watch(timecardProvider)!.lunch_end == null) {
+      buttons.add(LunchEndBtn());
+    }
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: buttons
+          .map(
+            (btn) => Padding(
+              padding: EdgeInsetsGeometry.symmetric(vertical: 8.0),
+              child: btn,
+            ),
+          )
+          .toList(),
+    );
+  }
+
   final isError = false;
   @override
   Widget build(BuildContext context) {
@@ -49,32 +91,8 @@ class _AttendanceState extends ConsumerState<Attendance> {
                     : Text(ref.watch(employeeProvider)!.firstName.toString()),
               ],
             ),
-            ref.watch(timecardProvider)!.clock_in == null
-                ? ClockInBtn()
-                : Text(
-                    'CLOCK IN: ${ref.read(timecardProvider)!.clock_in!.toLocal()}',
-                  ),
-
-            // ref.watch(timecardProvider)!.clock_in != null &&
-            //         ref.watch(timecardProvider)!.lunch_start == null
-            //     ? LunchStartBtn()
-            //     : ref.watch(timecardProvider)!.lunch_start != null
-            //     ? Text(
-            //         'Lunch Start: ${ref.watch(timecardProvider)!.lunch_start.toString()}',
-            //       )
-            //     : Container(),
-            // ref.watch(timecardProvider)!.clock_in != null &&
-            //         ref.watch(timecardProvider)!.lunch_end != null
-            //     ? LunchStartBtn()
-            //     : ref.watch(timecardProvider)!.lunch_end != null
-            //     ? Text(
-            //         'Lunch End: ${ref.watch(timecardProvider)!.lunch_end.toString()}',
-            //       )
-            //     : Container(),
-            // ref.watch(timecardProvider)!.clock_in != null &&
-            //         ref.watch(timecardProvider)!.clock_out == null
-            //     ? ClockOutBtn()
-            //     : Container(),
+            Row(children: [_buidStatusText()]),
+            _buildActionBtns(),
           ],
         ),
       ),
