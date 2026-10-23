@@ -4,6 +4,7 @@ import 'package:shop_barcode_scan_v3/screens/attendance/attendance.dart';
 // import 'package:shop_barcode_scan_v3/scan_screen.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:toastification/toastification.dart';
+import 'package:virtual_keypad/virtual_keypad.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -11,6 +12,7 @@ void main() async {
     url: 'https://foygqgkfaquhavxptfjl.supabase.co',
     publishableKey: 'sb_publishable_IXt1vYoPUS-GToOhyR0k-w_y3NC19tJ',
   );
+  initializeKeyboardLayouts();
   runApp(ProviderScope(child: MyApp()));
 }
 

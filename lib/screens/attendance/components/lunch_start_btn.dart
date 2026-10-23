@@ -22,7 +22,6 @@ class LunchStartBtn extends ConsumerWidget {
                 .from('attendance')
                 .update({'lunch_start': DateTime.now().toIso8601String()})
                 .eq('id', ref.watch(timecardProvider)!.id);
-            print(res);
           },
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,

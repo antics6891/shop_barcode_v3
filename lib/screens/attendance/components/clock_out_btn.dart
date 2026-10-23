@@ -23,7 +23,6 @@ class ClockOutBtn extends ConsumerWidget {
                 .update({'clock_out': DateTime.now().toIso8601String()})
                 .eq('id', ref.watch(timecardProvider)!.id)
                 .select();
-            print(res);
           },
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,

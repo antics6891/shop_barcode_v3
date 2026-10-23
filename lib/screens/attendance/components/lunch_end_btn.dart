@@ -23,7 +23,6 @@ class LunchEndBtn extends ConsumerWidget {
                 .update({'lunch_end': DateTime.now().toIso8601String()})
                 .eq('id', ref.watch(timecardProvider)!.id)
                 .select();
-            print(res);
           },
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,

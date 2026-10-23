@@ -217,6 +217,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "3.1.13"
+  dotted_border:
+    dependency: "direct main"
+    description:
+      name: dotted_border
+      sha256: "99b091ec6891ba0c5331fdc2b502993c7c108f898995739a73c6845d71dad70c"
+      url: "https://pub.dev"
+    source: hosted
+    version: "3.1.0"
   easy_stepper:
     dependency: "direct main"
     description:
@@ -225,6 +233,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.2.0"
+  emoji_picker_flutter:
+    dependency: transitive
+    description:
+      name: emoji_picker_flutter
+      sha256: "50f4da413a3dc5d2f59f2b0835ab3b3cce76c0779eb275058213506e6709503b"
+      url: "https://pub.dev"
+    source: hosted
+    version: "4.5.4"
   equatable:
     dependency: transitive
     description:
@@ -941,6 +957,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.4.3"
+  virtual_keypad:
+    dependency: "direct main"
+    description:
+      name: virtual_keypad
+      sha256: c89061d6f675aeef7a00d56771ad9c5167e73df1dbaa8c40e970125a19b36b28
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.10.1"
   vm_service:
     dependency: transitive
     description:
