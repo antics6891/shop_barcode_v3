@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:shop_barcode_scan_v3/providers/employee_provider.dart';
 import 'package:shop_barcode_scan_v3/providers/timecard_provider.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
@@ -23,6 +24,11 @@ class ClockOutBtn extends ConsumerWidget {
                 .update({'clock_out': DateTime.now().toIso8601String()})
                 .eq('id', ref.watch(timecardProvider)!.id)
                 .select();
+            if (res.isNotEmpty) {
+              ref.watch(timecardProvider.notifier).clearTimecard();
+              ref.watch(employeeProvider.notifier).clearEmployee();
+              Navigator.pop(context);
+            }
           },
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,

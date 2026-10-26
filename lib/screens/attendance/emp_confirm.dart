@@ -6,6 +6,7 @@ import 'package:shop_barcode_scan_v3/screens/attendance/components/clock_in_btn.
 import 'package:shop_barcode_scan_v3/screens/attendance/components/clock_out_btn.dart';
 import 'package:shop_barcode_scan_v3/screens/attendance/components/lunch_end_btn.dart';
 import 'package:shop_barcode_scan_v3/screens/attendance/components/lunch_start_btn.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 
 class EmpConfirm extends ConsumerStatefulWidget {
   const EmpConfirm({super.key});
@@ -18,7 +19,7 @@ class _EmpConfirmState extends ConsumerState<EmpConfirm> {
   Widget _buildActionBtns() {
     if (ref.watch(timecardProvider) == null ||
         ref.watch(timecardProvider)!.clock_in == null) {
-      return ClockInBtn();
+      return Animate(effects: [FlipEffect()], child: ClockInBtn());
     }
     if (ref.watch(timecardProvider)!.clock_out != null) {
       return Text('You are done for the day!');
@@ -46,6 +47,15 @@ class _EmpConfirmState extends ConsumerState<EmpConfirm> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        leading: BackButton(
+          onPressed: () {
+            ref.watch(timecardProvider.notifier).clearTimecard();
+            ref.watch(employeeProvider.notifier).clearEmployee();
+            Navigator.pop(context);
+          },
+        ),
+      ),
       backgroundColor: Colors.white,
       body: Column(
         spacing: 23,

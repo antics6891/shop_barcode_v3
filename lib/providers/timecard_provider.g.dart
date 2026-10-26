@@ -41,7 +41,7 @@ final class TimecardProvider
   }
 }
 
-String _$timecardHash() => r'8b3fb71e0ed5e57a2ed3b444100498d959a2492f';
+String _$timecardHash() => r'9d77c7239e3fc67e2d54625aa4a535545dcb2c6b';
 
 abstract class _$Timecard extends $Notifier<TimecardModel?> {
   TimecardModel? build();

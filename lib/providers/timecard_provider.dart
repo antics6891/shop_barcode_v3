@@ -12,6 +12,10 @@ class Timecard extends _$Timecard {
     state = TimecardModel.fromJson(tc);
   }
 
+  void clearTimecard() {
+    state = null;
+  }
+
   // Future<List> getTodayTimecard(String id) async {
   //   var cur = DateTime.now().toIso8601String();
   //   final resp = Supabase.instance.client

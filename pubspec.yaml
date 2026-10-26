@@ -45,6 +45,7 @@ dependencies:
   toastification: ^3.2.0
   virtual_keypad: ^1.10.1
   dotted_border: ^3.1.0
+  flutter_animate: ^4.5.2
 dev_dependencies:
   flutter_test:
     sdk: flutter

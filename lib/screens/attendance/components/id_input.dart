@@ -10,27 +10,23 @@ class IdInput extends ConsumerStatefulWidget {
 }
 
 class _IdInputState extends ConsumerState<IdInput> {
-  final idController = TextEditingController();
+  final controller = TextEditingController();
 
-  void handleSubmit() async {
-    if (idController.text.isNotEmpty) {
-      ref.watch(employeeProvider.notifier).checkEmployee(idController.text);
-    }
-  }
+  // void handleSubmit() async {
+  //   if (controller.text.isNotEmpty) {
+  //     ref.watch(employeeProvider.notifier).checkEmployee(idController.text);
+  //   }
+  // }
 
   @override
   Widget build(BuildContext context) {
+    ref.listen(employeeProvider, (previous, next) => controller.clear());
     return TextField(
-      controller: idController,
-      onSubmitted: (value) {
-        handleSubmit();
-      },
+      decoration: InputDecoration(label: Text("ID Number")),
+      controller: controller,
       autofocus: true,
-      style: TextStyle(fontSize: 30),
       textAlign: TextAlign.center,
-      decoration: InputDecoration(
-        border: OutlineInputBorder(borderRadius: BorderRadius.circular(9)),
-      ),
+      style: TextStyle(fontSize: 30),
     );
   }
 }

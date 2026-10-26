@@ -1,6 +1,5 @@
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:shop_barcode_scan_v3/models/employee.dart';
-import 'package:shop_barcode_scan_v3/models/timecard.dart';
 import 'package:shop_barcode_scan_v3/providers/timecard_provider.dart' as tc;
 import 'package:supabase_flutter/supabase_flutter.dart';
 
@@ -11,6 +10,10 @@ class EmployeeNotifier extends _$EmployeeNotifier {
   @override
   Employee? build() {
     return null;
+  }
+
+  void clearEmployee() {
+    state = null;
   }
 
   void checkEmployee(String id) async {
@@ -38,14 +41,15 @@ class EmployeeNotifier extends _$EmployeeNotifier {
         ref
             .read(tc.timecardProvider.notifier)
             .setTimecard(attendanceCheck.first);
-      } else {
-        // create a new attendance card
-        final newCard = await Supabase.instance.client
-            .from('attendance')
-            .insert({'emp_uuid': response.first['uuid']})
-            .select();
-        ref.read(tc.timecardProvider.notifier).setTimecard(newCard.first);
       }
+      // else {
+      //   // create a new attendance card
+      //   final newCard = await Supabase.instance.client
+      //       .from('attendance')
+      //       .insert({'emp_uuid': response.first['uuid']})
+      //       .select();
+      //   ref.read(tc.timecardProvider.notifier).setTimecard(newCard.first);
+      // }
     }
   }
 }
