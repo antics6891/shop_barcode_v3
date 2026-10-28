@@ -7,8 +7,6 @@ import 'package:shop_barcode_scan_v3/components/summary_step.dart';
 import 'package:shop_barcode_scan_v3/components/wo_step.dart';
 import 'package:shop_barcode_scan_v3/providers/employee_provider.dart';
 import 'package:shop_barcode_scan_v3/providers/stage_provider.dart';
-import 'package:shop_barcode_scan_v3/providers/timecard_provider.dart';
-import 'package:shop_barcode_scan_v3/providers/workorder_provider.dart';
 
 class ScanScreen extends ConsumerStatefulWidget {
   const ScanScreen({super.key});

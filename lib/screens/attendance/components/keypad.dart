@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shop_barcode_scan_v3/providers/employee_provider.dart';
+import 'package:shop_barcode_scan_v3/providers/error_provider.dart';
 import 'package:virtual_keypad/widgets.dart';
 
 final pinLayout = [
@@ -55,11 +56,17 @@ class _KeypadState extends ConsumerState<Keypad> {
       standalone: true,
       onStandaloneInputAction: (action, text) async {
         if (action == KeyAction.done && text.isNotEmpty) {
-          print('heee');
           ref.watch(employeeProvider.notifier).checkEmployee(text);
-
-          // controller.clear();
         }
+        ref.watch(isErrorProvider) != null
+            ? () => {
+                ScaffoldMessenger(
+                  child: SnackBar(
+                    content: ref.read(isErrorProvider)!['message'],
+                  ),
+                ),
+              }
+            : Container();
       },
     );
   }

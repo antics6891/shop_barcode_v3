@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shop_barcode_scan_v3/providers/employee_provider.dart';
+import 'package:shop_barcode_scan_v3/providers/error_provider.dart';
 import 'package:shop_barcode_scan_v3/screens/attendance/components/id_input.dart';
 import 'package:shop_barcode_scan_v3/screens/attendance/components/keypad.dart';
 import 'package:virtual_keypad/virtual_keypad.dart';
@@ -37,8 +38,11 @@ class ScreenLandscape extends ConsumerStatefulWidget {
 }
 
 class _ScreenLandscapeState extends ConsumerState<ScreenLandscape> {
+  final idController = VirtualKeypadController();
+
   @override
   Widget build(BuildContext context) {
+    ref.listen(isErrorProvider, (previous, next) => idController.clear());
     return Row(
       spacing: 16,
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -75,7 +79,6 @@ class _ScreenLandscapeState extends ConsumerState<ScreenLandscape> {
             height: double.infinity,
             width: double.infinity,
             child: Column(
-              spacing: 24,
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
@@ -85,34 +88,44 @@ class _ScreenLandscapeState extends ConsumerState<ScreenLandscape> {
                 ),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 20),
-                  child: IdInput(),
+                  child: TextField(
+                    textAlign: TextAlign.center,
+                    autofocus: true,
+                    decoration: InputDecoration(
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(9),
+                      ),
+                    ),
+                    style: TextStyle(fontSize: 32, letterSpacing: 0.2),
+                    controller: idController,
+                  ),
                 ),
-                // VirtualKeypad(
-                //   theme: VirtualKeypadTheme(
-                //     backgroundColor: Colors.white,
-                //     keyColor: Colors.grey.shade500,
-                //     keyTextSize: 30,
-                //     keyTextColor: Colors.white,
-                //     keyShadow: true,
-                //     verticalGap: 10,
-                //     horizontalGap: 10,
-                //     actionKeyColor: Colors.blue.shade600,
-                //     keyBorderRadius: 10,
-                //   ),
-                //   customLayout: pinLayout,
-                //   type: KeyboardType.custom,
-                //   standalone: true,
-                //   onStandaloneInputAction: (action, text) async {
-                //     if (action == KeyAction.done &&
-                //         controller.text.isNotEmpty) {
-                //       ref
-                //           .watch(employeeProvider.notifier)
-                //           .checkEmployee(controller.text);
-                //       controller.clear();
-                //     }
-                //   },
-                // ),
-                Keypad(),
+                VirtualKeypad(
+                  theme: VirtualKeypadTheme(
+                    backgroundColor: Colors.white,
+                    keyColor: Colors.grey.shade500,
+                    keyTextSize: 30,
+                    keyTextColor: Colors.white,
+                    keyShadow: true,
+                    verticalGap: 10,
+                    horizontalGap: 10,
+                    actionKeyColor: Colors.blue.shade600,
+                    keyBorderRadius: 10,
+                  ),
+
+                  customLayout: pinLayout,
+                  type: KeyboardType.custom,
+                  standalone: true,
+                  onStandaloneInputAction: (action, text) async {
+                    if (action == KeyAction.done &&
+                        idController.text.isNotEmpty) {
+                      ref
+                          .watch(employeeProvider.notifier)
+                          .checkEmployee(idController.text);
+                    }
+                  },
+                ),
+                // Keypad(),
               ],
             ),
           ),

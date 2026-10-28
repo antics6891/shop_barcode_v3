@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 import 'package:shop_barcode_scan_v3/providers/employee_provider.dart';
+import 'package:shop_barcode_scan_v3/providers/error_provider.dart';
 import 'package:shop_barcode_scan_v3/screens/attendance/components/screen_landscape.dart';
 import 'package:shop_barcode_scan_v3/screens/attendance/components/screen_portrait.dart';
 import 'package:shop_barcode_scan_v3/screens/attendance/emp_confirm.dart';
+import 'package:toastification/toastification.dart';
 
 class Attendance extends ConsumerStatefulWidget {
   const Attendance({super.key});
@@ -69,11 +71,17 @@ class _AttendanceState extends ConsumerState<Attendance> {
   final isError = false;
   @override
   Widget build(BuildContext context) {
-    ref.listen(employeeProvider, (previous, next) {
+    ref.listen(isErrorProvider, (previous, next) {
       if (next != null) {
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => EmpConfirm()),
+        toastification.show(
+          alignment: Alignment.bottomCenter,
+          autoCloseDuration: Duration(seconds: 2),
+          style: ToastificationStyle.flatColored,
+          type: ToastificationType.error,
+          title: Text(next['message']),
+          callbacks: ToastificationCallbacks(
+            onAutoCompleteCompleted: (value) => controller.clear(),
+          ),
         );
       }
     });

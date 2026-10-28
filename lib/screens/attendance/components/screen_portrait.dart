@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:shop_barcode_scan_v3/screens/attendance/components/id_input.dart';
 import 'package:shop_barcode_scan_v3/screens/attendance/components/keypad.dart';
 
 class ScreenPortrait extends ConsumerStatefulWidget {

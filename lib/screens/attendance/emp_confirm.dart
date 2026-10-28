@@ -25,7 +25,7 @@ class _EmpConfirmState extends ConsumerState<EmpConfirm> {
       return Text('You are done for the day!');
     }
     List<Widget> buttons = [];
-    buttons.add(ClockOutBtn());
+
     if (ref.watch(timecardProvider)!.lunch_start == null) {
       buttons.add(LunchStartBtn());
     } else if (ref.watch(timecardProvider)!.lunch_end == null) {
@@ -57,22 +57,34 @@ class _EmpConfirmState extends ConsumerState<EmpConfirm> {
         ),
       ),
       backgroundColor: Colors.white,
-      body: Column(
-        spacing: 23,
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(
-                'Welcome ${ref.watch(employeeProvider)!.firstName} ${ref.watch(employeeProvider)!.lastName}',
-                style: TextStyle(fontSize: 25),
+      body: Padding(
+        padding: const EdgeInsets.all(20.0),
+        child: Column(
+          spacing: 23,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Expanded(
+              child: Column(
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        'Welcome ${ref.watch(employeeProvider)!.firstName} ${ref.watch(employeeProvider)!.lastName}',
+                        style: TextStyle(fontSize: 25),
+                      ),
+                    ],
+                  ),
+                  SizedBox(height: 32),
+                  SizedBox(width: 300, child: _buildActionBtns()),
+                ],
               ),
-            ],
-          ),
-          SizedBox(height: 32),
-          SizedBox(width: 200, child: _buildActionBtns()),
-        ],
+            ),
+            ref.watch(timecardProvider)!.clock_in != null
+                ? SizedBox(height: 60, width: 200, child: ClockOutBtn())
+                : Container(),
+          ],
+        ),
       ),
     );
   }
