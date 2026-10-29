@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:shop_barcode_scan_v3/models/employee.dart';
 import 'package:shop_barcode_scan_v3/providers/employee_provider.dart';
 import 'package:shop_barcode_scan_v3/providers/error_provider.dart';
-import 'package:shop_barcode_scan_v3/screens/attendance/components/id_input.dart';
-import 'package:shop_barcode_scan_v3/screens/attendance/components/keypad.dart';
+import 'package:shop_barcode_scan_v3/providers/test.dart';
+import 'package:shop_barcode_scan_v3/screens/attendance/emp_confirm.dart';
 import 'package:virtual_keypad/virtual_keypad.dart';
 
 final pinLayout = [
@@ -43,6 +44,13 @@ class _ScreenLandscapeState extends ConsumerState<ScreenLandscape> {
   @override
   Widget build(BuildContext context) {
     ref.listen(isErrorProvider, (previous, next) => idController.clear());
+    ref.listen(
+      employeeProvider,
+      (previous, next) => Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => EmpConfirm()),
+      ),
+    );
     return Row(
       spacing: 16,
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -57,8 +65,8 @@ class _ScreenLandscapeState extends ConsumerState<ScreenLandscape> {
               child: Padding(
                 padding: const EdgeInsets.all(19.0),
                 child: Column(
-                  spacing: 16,
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  spacing: 32,
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text('ATTENDANCE KIOSK', style: TextStyle(fontSize: 27)),
                     Text(
@@ -125,7 +133,6 @@ class _ScreenLandscapeState extends ConsumerState<ScreenLandscape> {
                     }
                   },
                 ),
-                // Keypad(),
               ],
             ),
           ),

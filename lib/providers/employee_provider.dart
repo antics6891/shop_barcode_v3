@@ -26,8 +26,6 @@ class EmployeeNotifier extends _$EmployeeNotifier {
         .eq('is_active', true);
     // if employee exists
     if (response.isNotEmpty) {
-      print('user exists!');
-      state = Employee.fromJson(response.first);
       // check is user has attendance card for today
       final current = DateTime.now();
       final startDay = DateTime(current.year, current.month, current.day);
@@ -42,7 +40,6 @@ class EmployeeNotifier extends _$EmployeeNotifier {
           .lte('created_at', nextDay);
 
       if (attendanceCheck.isNotEmpty) {
-        print('user has timecard');
         ref
             .read(tc.timecardProvider.notifier)
             .setTimecard(attendanceCheck.first);
@@ -54,6 +51,7 @@ class EmployeeNotifier extends _$EmployeeNotifier {
             .select();
         ref.read(tc.timecardProvider.notifier).setTimecard(newCard.first);
       }
+      state = Employee.fromJson(response.first);
     }
     // employee does not exist
     else {
