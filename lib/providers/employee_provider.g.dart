@@ -9,12 +9,12 @@ part of 'employee_provider.dart';
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint, type=warning
 
-@ProviderFor(EmployeeNotifier)
-final employeeProvider = EmployeeNotifierProvider._();
+@ProviderFor(Employee)
+final employeeProvider = EmployeeProvider._();
 
-final class EmployeeNotifierProvider
-    extends $NotifierProvider<EmployeeNotifier, Employee?> {
-  EmployeeNotifierProvider._()
+final class EmployeeProvider
+    extends $NotifierProvider<Employee, EmployeeModel?> {
+  EmployeeProvider._()
     : super(
         from: null,
         argument: null,
@@ -26,34 +26,34 @@ final class EmployeeNotifierProvider
       );
 
   @override
-  String debugGetCreateSourceHash() => _$employeeNotifierHash();
+  String debugGetCreateSourceHash() => _$employeeHash();
 
   @$internal
   @override
-  EmployeeNotifier create() => EmployeeNotifier();
+  Employee create() => Employee();
 
   /// {@macro riverpod.override_with_value}
-  Override overrideWithValue(Employee? value) {
+  Override overrideWithValue(EmployeeModel? value) {
     return $ProviderOverride(
       origin: this,
-      providerOverride: $SyncValueProvider<Employee?>(value),
+      providerOverride: $SyncValueProvider<EmployeeModel?>(value),
     );
   }
 }
 
-String _$employeeNotifierHash() => r'cc68ab0d54d1c5d47deb503847e8ad619574fc27';
+String _$employeeHash() => r'e728f0cbce987dd6e3d8c0078919854fcf5b5f98';
 
-abstract class _$EmployeeNotifier extends $Notifier<Employee?> {
-  Employee? build();
+abstract class _$Employee extends $Notifier<EmployeeModel?> {
+  EmployeeModel? build();
   @$mustCallSuper
   @override
   WhenComplete runBuild() {
-    final ref = this.ref as $Ref<Employee?, Employee?>;
+    final ref = this.ref as $Ref<EmployeeModel?, EmployeeModel?>;
     final element =
         ref.element
             as $ClassProviderElement<
-              AnyNotifier<Employee?, Employee?>,
-              Employee?,
+              AnyNotifier<EmployeeModel?, EmployeeModel?>,
+              EmployeeModel?,
               Object?,
               Object?
             >;

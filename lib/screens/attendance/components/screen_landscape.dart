@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:shop_barcode_scan_v3/api/employee_service.dart';
 import 'package:shop_barcode_scan_v3/models/employee.dart';
 import 'package:shop_barcode_scan_v3/providers/employee_provider.dart';
 import 'package:shop_barcode_scan_v3/providers/error_provider.dart';
-import 'package:shop_barcode_scan_v3/providers/test.dart';
 import 'package:shop_barcode_scan_v3/screens/attendance/emp_confirm.dart';
 import 'package:virtual_keypad/virtual_keypad.dart';
 
@@ -40,17 +40,43 @@ class ScreenLandscape extends ConsumerStatefulWidget {
 
 class _ScreenLandscapeState extends ConsumerState<ScreenLandscape> {
   final idController = VirtualKeypadController();
+  bool isLoading = false;
 
   @override
   Widget build(BuildContext context) {
-    ref.listen(isErrorProvider, (previous, next) => idController.clear());
-    ref.listen(
-      employeeProvider,
-      (previous, next) => Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context) => EmpConfirm()),
-      ),
-    );
+    ref.listen(employeeProvider, (previous, next) {
+      if (next!.uuid != null) {
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => EmpConfirm()),
+        );
+      }
+    });
+    void handleIdCheck() async {
+      setState(() {
+        isLoading = true;
+      });
+      final res = await EmployeeService().checkEmployee(idController.text);
+
+      if (res != null) {
+        setState(() {
+          isLoading = false;
+        });
+        ref.read(employeeProvider.notifier).setEmployee(res);
+      } else {
+        setState(() {
+          isLoading = false;
+        });
+        idController.clear();
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('No Valid Employee'),
+            backgroundColor: Colors.redAccent,
+          ),
+        );
+      }
+    }
+
     return Row(
       spacing: 16,
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -127,9 +153,7 @@ class _ScreenLandscapeState extends ConsumerState<ScreenLandscape> {
                   onStandaloneInputAction: (action, text) async {
                     if (action == KeyAction.done &&
                         idController.text.isNotEmpty) {
-                      ref
-                          .watch(employeeProvider.notifier)
-                          .checkEmployee(idController.text);
+                      handleIdCheck();
                     }
                   },
                 ),

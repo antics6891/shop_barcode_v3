@@ -56,7 +56,7 @@ class _KeypadState extends ConsumerState<Keypad> {
       standalone: true,
       onStandaloneInputAction: (action, text) async {
         if (action == KeyAction.done && text.isNotEmpty) {
-          ref.watch(employeeProvider.notifier).checkEmployee(text);
+          // ref.watch(employeeProvider.notifier).checkEmployee(text);
         }
         ref.watch(isErrorProvider) != null
             ? () => {

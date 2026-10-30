@@ -5,13 +5,13 @@ part 'employee.freezed.dart';
 part 'employee.g.dart';
 
 @freezed
-abstract class Employee with _$Employee {
-  const factory Employee({
+abstract class EmployeeModel with _$EmployeeModel {
+  const factory EmployeeModel({
     required String firstName,
     required String lastName,
     required String uuid,
-  }) = _Employee;
+  }) = _EmployeeModel;
 
-  factory Employee.fromJson(Map<String, Object?> json) =>
-      _$EmployeeFromJson(json);
+  factory EmployeeModel.fromJson(Map<String, Object?> json) =>
+      _$EmployeeModelFromJson(json);
 }

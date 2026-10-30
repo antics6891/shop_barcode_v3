@@ -14,51 +14,51 @@ part of 'employee.dart';
 T _$identity<T>(T value) => value;
 
 /// @nodoc
-mixin _$Employee implements DiagnosticableTreeMixin {
+mixin _$EmployeeModel implements DiagnosticableTreeMixin {
 
  String get firstName; String get lastName; String get uuid;
-/// Create a copy of Employee
+/// Create a copy of EmployeeModel
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
 @pragma('vm:prefer-inline')
-$EmployeeCopyWith<Employee> get copyWith => _$EmployeeCopyWithImpl<Employee>(this as Employee, _$identity);
+$EmployeeModelCopyWith<EmployeeModel> get copyWith => _$EmployeeModelCopyWithImpl<EmployeeModel>(this as EmployeeModel, _$identity);
 
-  /// Serializes this Employee to a JSON map.
+  /// Serializes this EmployeeModel to a JSON map.
   Map<String, dynamic> toJson();
 
 @override
 void debugFillProperties(DiagnosticPropertiesBuilder properties) {
-  final _this = this as Employee;
+  final _this = this as EmployeeModel;
   properties
-    ..add(DiagnosticsProperty('type', 'Employee'))
+    ..add(DiagnosticsProperty('type', 'EmployeeModel'))
     ..add(DiagnosticsProperty('firstName', _this.firstName))..add(DiagnosticsProperty('lastName', _this.lastName))..add(DiagnosticsProperty('uuid', _this.uuid));
 }
 
 @override
 bool operator ==(Object other) {
-  final _this = this as Employee;
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is Employee&&(identical(other.firstName, _this.firstName) || other.firstName == _this.firstName)&&(identical(other.lastName, _this.lastName) || other.lastName == _this.lastName)&&(identical(other.uuid, _this.uuid) || other.uuid == _this.uuid));
+  final _this = this as EmployeeModel;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is EmployeeModel&&(identical(other.firstName, _this.firstName) || other.firstName == _this.firstName)&&(identical(other.lastName, _this.lastName) || other.lastName == _this.lastName)&&(identical(other.uuid, _this.uuid) || other.uuid == _this.uuid));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
 int get hashCode {
-  final _this = this as Employee;
+  final _this = this as EmployeeModel;
   return Object.hash(runtimeType,_this.firstName,_this.lastName,_this.uuid);
 }
 
 @override
 String toString({ DiagnosticLevel minLevel = DiagnosticLevel.info }) {
-  final _this = this as Employee;
-  return 'Employee(firstName: ${_this.firstName}, lastName: ${_this.lastName}, uuid: ${_this.uuid})';
+  final _this = this as EmployeeModel;
+  return 'EmployeeModel(firstName: ${_this.firstName}, lastName: ${_this.lastName}, uuid: ${_this.uuid})';
 }
 
 
 }
 
 /// @nodoc
-abstract mixin class $EmployeeCopyWith<$Res>  {
-  factory $EmployeeCopyWith(Employee value, $Res Function(Employee) _then) = _$EmployeeCopyWithImpl;
+abstract mixin class $EmployeeModelCopyWith<$Res>  {
+  factory $EmployeeModelCopyWith(EmployeeModel value, $Res Function(EmployeeModel) _then) = _$EmployeeModelCopyWithImpl;
 @useResult
 $Res call({
  String firstName, String lastName, String uuid
@@ -69,17 +69,17 @@ $Res call({
 
 }
 /// @nodoc
-class _$EmployeeCopyWithImpl<$Res>
-    implements $EmployeeCopyWith<$Res> {
-  _$EmployeeCopyWithImpl(this._self, this._then);
+class _$EmployeeModelCopyWithImpl<$Res>
+    implements $EmployeeModelCopyWith<$Res> {
+  _$EmployeeModelCopyWithImpl(this._self, this._then);
 
-  final Employee _self;
-  final $Res Function(Employee) _then;
+  final EmployeeModel _self;
+  final $Res Function(EmployeeModel) _then;
 
-/// Create a copy of Employee
+/// Create a copy of EmployeeModel
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? firstName = null,Object? lastName = null,Object? uuid = null,}) {
-  return _then(Employee(
+  return _then(EmployeeModel(
 firstName: null == firstName ? _self.firstName : firstName // ignore: cast_nullable_to_non_nullable
 as String,lastName: null == lastName ? _self.lastName : lastName // ignore: cast_nullable_to_non_nullable
 as String,uuid: null == uuid ? _self.uuid : uuid // ignore: cast_nullable_to_non_nullable
@@ -90,8 +90,8 @@ as String,
 }
 
 
-/// Adds pattern-matching-related methods to [Employee].
-extension EmployeePatterns on Employee {
+/// Adds pattern-matching-related methods to [EmployeeModel].
+extension EmployeeModelPatterns on EmployeeModel {
 /// A variant of `map` that fallback to returning `orElse`.
 ///
 /// It is equivalent to doing:
@@ -104,10 +104,10 @@ extension EmployeePatterns on Employee {
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeMap<TResult extends Object?>(TResult Function( _Employee value)?  $default,{required TResult orElse(),}){
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>(TResult Function( _EmployeeModel value)?  $default,{required TResult orElse(),}){
 final _that = this;
 switch (_that) {
-case _Employee() when $default != null:
+case _EmployeeModel() when $default != null:
 return $default(_that);case _:
   return orElse();
 
@@ -126,10 +126,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult map<TResult extends Object?>(TResult Function( _Employee value)  $default,){
+@optionalTypeArgs TResult map<TResult extends Object?>(TResult Function( _EmployeeModel value)  $default,){
 final _that = this;
 switch (_that) {
-case _Employee():
+case _EmployeeModel():
 return $default(_that);case _:
   throw StateError('Unexpected subclass');
 
@@ -147,10 +147,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(TResult? Function( _Employee value)?  $default,){
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(TResult? Function( _EmployeeModel value)?  $default,){
 final _that = this;
 switch (_that) {
-case _Employee() when $default != null:
+case _EmployeeModel() when $default != null:
 return $default(_that);case _:
   return null;
 
@@ -170,7 +170,7 @@ return $default(_that);case _:
 
 @optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String firstName,  String lastName,  String uuid)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
-case _Employee() when $default != null:
+case _EmployeeModel() when $default != null:
 return $default(_that.firstName,_that.lastName,_that.uuid);case _:
   return orElse();
 
@@ -191,7 +191,7 @@ return $default(_that.firstName,_that.lastName,_that.uuid);case _:
 
 @optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String firstName,  String lastName,  String uuid)  $default,) {final _that = this;
 switch (_that) {
-case _Employee():
+case _EmployeeModel():
 return $default(_that.firstName,_that.lastName,_that.uuid);case _:
   throw StateError('Unexpected subclass');
 
@@ -211,7 +211,7 @@ return $default(_that.firstName,_that.lastName,_that.uuid);case _:
 
 @optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String firstName,  String lastName,  String uuid)?  $default,) {final _that = this;
 switch (_that) {
-case _Employee() when $default != null:
+case _EmployeeModel() when $default != null:
 return $default(_that.firstName,_that.lastName,_that.uuid);case _:
   return null;
 
@@ -223,34 +223,34 @@ return $default(_that.firstName,_that.lastName,_that.uuid);case _:
 /// @nodoc
 @JsonSerializable()
 
-class _Employee with DiagnosticableTreeMixin implements Employee {
-  const _Employee({required this.firstName, required this.lastName, required this.uuid});
-  factory _Employee.fromJson(Map<String, dynamic> json) => _$EmployeeFromJson(json);
+class _EmployeeModel with DiagnosticableTreeMixin implements EmployeeModel {
+  const _EmployeeModel({required this.firstName, required this.lastName, required this.uuid});
+  factory _EmployeeModel.fromJson(Map<String, dynamic> json) => _$EmployeeModelFromJson(json);
 
 @override final  String firstName;
 @override final  String lastName;
 @override final  String uuid;
 
-/// Create a copy of Employee
+/// Create a copy of EmployeeModel
 /// with the given fields replaced by the non-null parameter values.
 @override @JsonKey(includeFromJson: false, includeToJson: false)
 @pragma('vm:prefer-inline')
-_$EmployeeCopyWith<_Employee> get copyWith => __$EmployeeCopyWithImpl<_Employee>(this, _$identity);
+_$EmployeeModelCopyWith<_EmployeeModel> get copyWith => __$EmployeeModelCopyWithImpl<_EmployeeModel>(this, _$identity);
 
 @override
 Map<String, dynamic> toJson() {
-  return _$EmployeeToJson(this, );
+  return _$EmployeeModelToJson(this, );
 }
 @override
 void debugFillProperties(DiagnosticPropertiesBuilder properties) {
     properties
-    ..add(DiagnosticsProperty('type', 'Employee'))
+    ..add(DiagnosticsProperty('type', 'EmployeeModel'))
     ..add(DiagnosticsProperty('firstName', firstName))..add(DiagnosticsProperty('lastName', lastName))..add(DiagnosticsProperty('uuid', uuid));
 }
 
 @override
 bool operator ==(Object other) {
-    return identical(this, other) || (other.runtimeType == runtimeType&&other is _Employee&&(identical(other.firstName, firstName) || other.firstName == firstName)&&(identical(other.lastName, lastName) || other.lastName == lastName)&&(identical(other.uuid, uuid) || other.uuid == uuid));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _EmployeeModel&&(identical(other.firstName, firstName) || other.firstName == firstName)&&(identical(other.lastName, lastName) || other.lastName == lastName)&&(identical(other.uuid, uuid) || other.uuid == uuid));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -261,15 +261,15 @@ int get hashCode {
 
 @override
 String toString({ DiagnosticLevel minLevel = DiagnosticLevel.info }) {
-    return 'Employee(firstName: $firstName, lastName: $lastName, uuid: $uuid)';
+    return 'EmployeeModel(firstName: $firstName, lastName: $lastName, uuid: $uuid)';
 }
 
 
 }
 
 /// @nodoc
-abstract mixin class _$EmployeeCopyWith<$Res> implements $EmployeeCopyWith<$Res> {
-  factory _$EmployeeCopyWith(_Employee value, $Res Function(_Employee) _then) = __$EmployeeCopyWithImpl;
+abstract mixin class _$EmployeeModelCopyWith<$Res> implements $EmployeeModelCopyWith<$Res> {
+  factory _$EmployeeModelCopyWith(_EmployeeModel value, $Res Function(_EmployeeModel) _then) = __$EmployeeModelCopyWithImpl;
 @override @useResult
 $Res call({
  String firstName, String lastName, String uuid
@@ -280,17 +280,17 @@ $Res call({
 
 }
 /// @nodoc
-class __$EmployeeCopyWithImpl<$Res>
-    implements _$EmployeeCopyWith<$Res> {
-  __$EmployeeCopyWithImpl(this._self, this._then);
+class __$EmployeeModelCopyWithImpl<$Res>
+    implements _$EmployeeModelCopyWith<$Res> {
+  __$EmployeeModelCopyWithImpl(this._self, this._then);
 
-  final _Employee _self;
-  final $Res Function(_Employee) _then;
+  final _EmployeeModel _self;
+  final $Res Function(_EmployeeModel) _then;
 
-/// Create a copy of Employee
+/// Create a copy of EmployeeModel
 /// with the given fields replaced by the non-null parameter values.
 @override @pragma('vm:prefer-inline') $Res call({Object? firstName = null,Object? lastName = null,Object? uuid = null,}) {
-  return _then(_Employee(
+  return _then(_EmployeeModel(
 firstName: null == firstName ? _self.firstName : firstName // ignore: cast_nullable_to_non_nullable
 as String,lastName: null == lastName ? _self.lastName : lastName // ignore: cast_nullable_to_non_nullable
 as String,uuid: null == uuid ? _self.uuid : uuid // ignore: cast_nullable_to_non_nullable
