@@ -5,7 +5,8 @@ import 'package:shop_barcode_scan_v3/providers/timecard_provider.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 class ClockOutBtn extends ConsumerWidget {
-  const ClockOutBtn({super.key});
+  String dbUuid;
+  ClockOutBtn({super.key, required this.dbUuid});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -22,7 +23,7 @@ class ClockOutBtn extends ConsumerWidget {
             final res = await Supabase.instance.client
                 .from('attendance')
                 .update({'clock_out': DateTime.now().toIso8601String()})
-                .eq('id', ref.watch(timecardProvider)!.id)
+                .eq('uuid', dbUuid)
                 .select();
             if (res.isNotEmpty) {
               ref.watch(timecardProvider.notifier).clearTimecard();

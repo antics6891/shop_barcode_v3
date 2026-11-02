@@ -1,17 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:intl/intl.dart';
 import 'package:shop_barcode_scan_v3/screens/attendance/attendance.dart';
 // import 'package:shop_barcode_scan_v3/scan_screen.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:toastification/toastification.dart';
 import 'package:virtual_keypad/virtual_keypad.dart';
+import 'package:intl/date_symbol_data_local.dart';
 
 void main() async {
+  Intl.defaultLocale = 'en_US';
   WidgetsFlutterBinding.ensureInitialized();
   await Supabase.initialize(
     url: 'https://foygqgkfaquhavxptfjl.supabase.co',
     publishableKey: 'sb_publishable_IXt1vYoPUS-GToOhyR0k-w_y3NC19tJ',
   );
+  await initializeDateFormatting('en_US', null);
   initializeKeyboardLayouts();
   runApp(ProviderScope(child: MyApp()));
 }

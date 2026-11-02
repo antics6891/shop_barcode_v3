@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:intl/intl.dart';
 import 'package:shop_barcode_scan_v3/api/timecard_service.dart';
+import 'package:shop_barcode_scan_v3/models/timecard.dart';
 import 'package:shop_barcode_scan_v3/providers/employee_provider.dart';
 import 'package:shop_barcode_scan_v3/providers/timecard_provider.dart';
 import 'package:shop_barcode_scan_v3/screens/attendance/components/clock_in_btn.dart';
@@ -19,75 +21,85 @@ class EmpConfirm extends ConsumerStatefulWidget {
 
 class _EmpConfirmState extends ConsumerState<EmpConfirm> {
   bool isLoading = false;
-  late Map<String, dynamic>? timecard;
+  TimecardModel? userTimecard;
 
   @override
   void initState() {
     super.initState();
-    TimecardService().getEmpTodayTimecard(ref.read(employeeProvider)!.uuid).then(
-      (value) {
-        if (value != null) {
-          print('here');
-        } else {
-          print('there');
-          // TimecardService()
-          //     .createEmployeeTimecard(ref.read(employeeProvider)!.uuid)
-          //     .then((value) {
-          //       ScaffoldMessenger.of(
-          //         context,
-          //       ).showSnackBar(SnackBar(content: Text('Timecard Created!')));
-          //     });
-        }
-      },
+    final what = TimecardService().getEmpTodayTimecard(
+      ref.watch(employeeProvider)!.uuid,
     );
-  }
-  // Widget _buildActionBtns() {
-  //   if (ref.watch(timecardProvider) == null ||
-  //       ref.watch(timecardProvider)!.clock_in == null) {
-  //     return Animate(effects: [FlipEffect()], child: ClockInBtn());
-  //   }
-  //   if (ref.watch(timecardProvider)!.clock_out != null) {
-  //     return Text('You are done for the day!');
-  //   }
-  //   List<Widget> buttons = [];
 
-  //   if (ref.watch(timecardProvider)!.lunch_start == null) {
-  //     buttons.add(LunchStartBtn());
-  //   } else if (ref.watch(timecardProvider)!.lunch_end == null) {
-  //     buttons.add(LunchEndBtn());
-  //   }
-  //   return Column(
-  //     crossAxisAlignment: CrossAxisAlignment.stretch,
-  //     children: buttons
-  //         .map(
-  //           (btn) => Padding(
-  //             padding: EdgeInsetsGeometry.symmetric(vertical: 8.0),
-  //             child: btn,
-  //           ),
-  //         )
-  //         .toList(),
-  //   );
-  // }
-  void checkTimecard() async {
-    TimecardService()
-        .getEmpTodayTimecard(ref.read(employeeProvider)!.uuid)
-        .then((value) => print(value));
+    what.then(
+      // (value) => {ref.read(timecardProvider.notifier).setTimecard(value!)},
+      (value) => print(value),
+      // setState(() {
+      //   if (value!.isNotEmpty) {
+      //     userTimecard = TimecardModel.fromJson(value);
+      //   }
+      // }
+      // ),
+    );
   }
 
   @override
   Widget build(BuildContext context) {
     final empRef = ref.watch(employeeProvider);
+    print(empRef);
+    // final tcRef = ref.watch(timecardProvider);
+    // print(userTimecard);
+
+    // Widget buildActionBtns() {
+    //   List<Widget> buttons = [];
+
+    //   if (userTimecard == null) {
+    //     buttons.add(ClockInBtn());
+    //   } else {
+    //     if (userTimecard!.clock_in == null) {
+    //       buttons.add(ClockInBtn());
+    //     } else {
+    //       buttons.add(
+    //         Text(DateFormat('h:mma').format(userTimecard!.clock_in!)),
+    //       );
+    //     }
+
+    //     if (userTimecard!.lunch_start == null) {
+    //       buttons.add(LunchStartBtn(dbUuid: userTimecard!.uuid));
+    //     } else {
+    //       final DateFormat df = DateFormat('HH:mm');
+
+    //       String tt = DateFormat('h:mma').format(userTimecard!.lunch_start!);
+    //       buttons.add(Text(tt));
+    //     }
+
+    //     if (userTimecard!.lunch_start != null &&
+    //         userTimecard!.lunch_end == null) {
+    //       buttons.add(LunchEndBtn(dbUuid: userTimecard!.uuid));
+    //     } else {
+    //       buttons.add(
+    //         Text(DateFormat('h:mma').format(userTimecard!.lunch_end!)),
+    //       );
+    //     }
+    //     if (userTimecard!.clock_in != null && userTimecard!.clock_out == null) {
+    //       buttons.add(Expanded(child: ClockOutBtn(dbUuid: userTimecard!.uuid)));
+    //     } else {
+    //       buttons.add(
+    //         Text(DateFormat('h:mma').format(userTimecard!.clock_out!)),
+    //       );
+    //     }
+    //   }
+
+    //   return Column(
+    //     mainAxisAlignment: MainAxisAlignment.center,
+    //     crossAxisAlignment: CrossAxisAlignment.center,
+    //     children: buttons
+    //         .map((e) => Padding(padding: EdgeInsetsGeometry.all(12), child: e))
+    //         .toList(),
+    //   );
+    // }
 
     return Scaffold(
-      appBar: AppBar(
-        leading: BackButton(
-          onPressed: () {
-            // ref.watch(timecardProvider.notifier).clearTimecard();
-            // ref.watch(employeeProvider.notifier).clearEmployee();
-            // Navigator.pop(context);
-          },
-        ),
-      ),
+      appBar: AppBar(leading: BackButton(onPressed: () {})),
       backgroundColor: Colors.white,
       body: Padding(
         padding: const EdgeInsets.all(20.0),
@@ -100,6 +112,7 @@ class _EmpConfirmState extends ConsumerState<EmpConfirm> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
+                  // Text(userTimecard),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
@@ -125,39 +138,11 @@ class _EmpConfirmState extends ConsumerState<EmpConfirm> {
                       ),
                     ],
                   ),
-                  Row(
-                    children: [
-                      ElevatedButton(
-                        onPressed: () {
-                          checkTimecard();
-                        },
-                        child: Text('Timecard'),
-                      ),
-                    ],
-                  ),
+                  // Row(children: [buildActionBtns()]),
+                  // Row(children: [ClockInBtn()]),
                 ],
               ),
-              // child: Column(
-              //   children: [
-
-              //     // Row(
-              //     //   mainAxisAlignment: MainAxisAlignment.center,
-              //     //   children: [
-              //     //     Text(
-              //     //       // 'Welcome ${ref.watch(employeeProvider)!.firstName} ${ref.watch(employeeProvider)!.lastName}',
-              //     //       'Welcome',
-              //     //       style: TextStyle(fontSize: 25),
-              //     //     ),
-              //     //   ],
-              //     // ),
-              //     // SizedBox(height: 32),
-              //     // SizedBox(width: 300, child: _buildActionBtns()),
-              //   ],
-              // ),
             ),
-            // ref.watch(timecardProvider)!.clock_in != null
-            //     ? SizedBox(height: 60, width: 200, child: ClockOutBtn())
-            //     : Container(),
           ],
         ),
       ),

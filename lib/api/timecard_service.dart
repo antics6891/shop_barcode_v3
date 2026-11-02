@@ -1,15 +1,29 @@
+import 'package:flutter/material.dart';
 import 'package:shop_barcode_scan_v3/models/employee.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 class TimecardService {
   Future<Map<String, dynamic>?> getEmpTodayTimecard(String uuid) async {
+    DateTime today = DateTime.now();
+    final String formattedDate = DateTime(
+      today.year,
+      today.month,
+      today.day,
+      0,
+      0,
+      0,
+      0,
+      0,
+    ).toIso8601String();
+    print(formattedDate);
     List<Map<String, dynamic>> response = await Supabase.instance.client
-        .from('employees')
-        .select('uuid, firstName:first_name, lastName:last_name')
-        .eq('emp_id', uuid)
-        .eq('is_active', true);
+        .from('attendance')
+        .select()
+        .eq('emp_uuid', uuid)
+        .gte('created_at', formattedDate);
 
     if (response.isNotEmpty) {
+      print(response);
       return response.first;
     } else {
       return null;

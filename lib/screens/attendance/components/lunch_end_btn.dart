@@ -5,10 +5,12 @@ import 'package:shop_barcode_scan_v3/providers/timecard_provider.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 class LunchEndBtn extends ConsumerWidget {
-  const LunchEndBtn({super.key});
+  String dbUuid;
+  LunchEndBtn({super.key, required this.dbUuid});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    print(dbUuid);
     return ConstrainedBox(
       constraints: BoxConstraints(maxWidth: 300),
       child: SizedBox(
@@ -22,13 +24,14 @@ class LunchEndBtn extends ConsumerWidget {
             final res = await Supabase.instance.client
                 .from('attendance')
                 .update({'lunch_end': DateTime.now().toIso8601String()})
-                .eq('id', ref.watch(timecardProvider)!.id)
+                .eq('uuid', dbUuid)
                 .select();
-            if (res.isNotEmpty) {
-              ref.watch(employeeProvider.notifier).clearEmployee();
-              ref.watch(timecardProvider.notifier).clearTimecard();
-              Navigator.pop(context);
-            }
+
+            // if (res.isNotEmpty) {
+            //   ref.watch(employeeProvider.notifier).clearEmployee();
+            //   ref.watch(timecardProvider.notifier).clearTimecard();
+            //   Navigator.pop(context);
+            // }
           },
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,

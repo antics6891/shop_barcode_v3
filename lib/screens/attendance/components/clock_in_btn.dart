@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:shop_barcode_scan_v3/providers/employee_provider.dart';
 import 'package:shop_barcode_scan_v3/providers/timecard_provider.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
@@ -17,11 +18,12 @@ class ClockInBtn extends ConsumerWidget {
         child: ElevatedButton(
           style: ElevatedButton.styleFrom(padding: EdgeInsets.all(21)),
           onPressed: () async {
-            final what = await Supabase.instance.client
-                .from('attendance')
-                .update({'clock_in': DateTime.now().toIso8601String()})
-                .eq('id', ref.watch(timecardProvider)!.id)
-                .select();
+            final what =
+                await Supabase.instance.client.from('attendance').insert({
+                  'clock_in': DateTime.now().toIso8601String(),
+                  'emp_uuid': ref.watch(employeeProvider)!.uuid,
+                }).select();
+            print(what);
           },
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,

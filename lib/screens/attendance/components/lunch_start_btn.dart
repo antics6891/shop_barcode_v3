@@ -5,7 +5,8 @@ import 'package:shop_barcode_scan_v3/providers/timecard_provider.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 class LunchStartBtn extends ConsumerWidget {
-  const LunchStartBtn({super.key});
+  String dbUuid;
+  LunchStartBtn({super.key, required this.dbUuid});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -22,7 +23,7 @@ class LunchStartBtn extends ConsumerWidget {
             final res = await Supabase.instance.client
                 .from('attendance')
                 .update({'lunch_start': DateTime.now().toIso8601String()})
-                .eq('id', ref.watch(timecardProvider)!.id)
+                .eq('uuid', dbUuid)
                 .select();
             if (res.isNotEmpty) {
               ref.watch(timecardProvider.notifier).clearTimecard();
