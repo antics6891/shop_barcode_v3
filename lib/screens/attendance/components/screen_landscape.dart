@@ -85,26 +85,13 @@ class _ScreenLandscapeState extends ConsumerState<ScreenLandscape> {
           child: SizedBox(
             height: double.infinity,
             width: double.infinity,
-            child: Card(
-              color: Colors.white,
-              elevation: 4,
-              child: Padding(
-                padding: const EdgeInsets.all(19.0),
-                child: Column(
-                  spacing: 32,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text('ATTENDANCE KIOSK', style: TextStyle(fontSize: 27)),
-                    Text(
-                      'No Notifications',
-                      style: TextStyle(
-                        fontSize: 19,
-                        color: Colors.grey.shade500,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
+            child: Column(
+              spacing: 32,
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Text('ATTENDANCE KIOSK', style: TextStyle(fontSize: 27)),
+              ],
             ),
           ),
         ),

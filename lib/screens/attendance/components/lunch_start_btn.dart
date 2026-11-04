@@ -26,9 +26,8 @@ class LunchStartBtn extends ConsumerWidget {
                 .eq('uuid', dbUuid)
                 .select();
             if (res.isNotEmpty) {
-              ref.watch(timecardProvider.notifier).clearTimecard();
               ref.watch(employeeProvider.notifier).clearEmployee();
-              Navigator.pop(context);
+              Navigator.of(context).pop(true);
             }
           },
           child: Row(

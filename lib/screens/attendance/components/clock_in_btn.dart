@@ -23,7 +23,10 @@ class ClockInBtn extends ConsumerWidget {
                   'clock_in': DateTime.now().toIso8601String(),
                   'emp_uuid': ref.watch(employeeProvider)!.uuid,
                 }).select();
-            print(what);
+            if (what.isNotEmpty) {
+              ref.watch(employeeProvider.notifier).clearEmployee();
+              Navigator.of(context).pop();
+            }
           },
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,

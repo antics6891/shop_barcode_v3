@@ -26,7 +26,6 @@ class ClockOutBtn extends ConsumerWidget {
                 .eq('uuid', dbUuid)
                 .select();
             if (res.isNotEmpty) {
-              ref.watch(timecardProvider.notifier).clearTimecard();
               ref.watch(employeeProvider.notifier).clearEmployee();
               Navigator.pop(context);
             }

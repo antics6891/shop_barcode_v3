@@ -27,11 +27,10 @@ class LunchEndBtn extends ConsumerWidget {
                 .eq('uuid', dbUuid)
                 .select();
 
-            // if (res.isNotEmpty) {
-            //   ref.watch(employeeProvider.notifier).clearEmployee();
-            //   ref.watch(timecardProvider.notifier).clearTimecard();
-            //   Navigator.pop(context);
-            // }
+            if (res.isNotEmpty) {
+              ref.watch(employeeProvider.notifier).clearEmployee();
+              Navigator.of(context).pop();
+            }
           },
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
