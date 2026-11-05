@@ -8,18 +8,15 @@ class TimestampCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ConstrainedBox(
-      constraints: BoxConstraints(maxWidth: 420),
-      child: Card(
-        child: Padding(
-          padding: EdgeInsets.all(16),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(label,style: TextStyle(fontSize: 19, fontWeight: FontWeight.w500)),
-              Text(DateFormat('h:mm a').format(timestamp),style: TextStyle(fontSize: 19, fontWeight: FontWeight.w500)),
-            ],
-          ),
+    return Card(
+      child: Padding(
+        padding: EdgeInsets.all(16),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text(label,style: TextStyle(fontSize: 19, fontWeight: FontWeight.w500)),
+            Text(DateFormat('h:mm a').format(timestamp),style: TextStyle(fontSize: 19, fontWeight: FontWeight.w500)),
+          ],
         ),
       ),
     );

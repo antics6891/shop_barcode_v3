@@ -1,17 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:intl/intl.dart';
 import 'package:shop_barcode_scan_v3/api/timecard_service.dart';
 import 'package:shop_barcode_scan_v3/models/timecard.dart';
 import 'package:shop_barcode_scan_v3/providers/employee_provider.dart';
-import 'package:shop_barcode_scan_v3/providers/timecard_provider.dart';
 import 'package:shop_barcode_scan_v3/screens/attendance/components/clock_in_btn.dart';
 import 'package:shop_barcode_scan_v3/screens/attendance/components/clock_out_btn.dart';
 import 'package:shop_barcode_scan_v3/screens/attendance/components/lunch_end_btn.dart';
 import 'package:shop_barcode_scan_v3/screens/attendance/components/lunch_start_btn.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:shop_barcode_scan_v3/screens/attendance/components/timestamp_card.dart';
-import 'package:supabase_flutter/supabase_flutter.dart';
 
 class EmpConfirm extends ConsumerStatefulWidget {
   const EmpConfirm({super.key});
@@ -55,6 +52,12 @@ class _EmpConfirmState extends ConsumerState<EmpConfirm> {
   @override
   Widget build(BuildContext context) {
     final empRef = ref.watch(employeeProvider);
+    ref.listen(employeeProvider, (previous, next) {
+      if (next == null) {
+        ref.read(employeeProvider.notifier).clearEmployee();
+        Navigator.of(context).pop();
+      }
+    });
 
     Widget buildActionBtns() {
       List<Widget> buttons = [];
@@ -110,6 +113,7 @@ class _EmpConfirmState extends ConsumerState<EmpConfirm> {
       }
 
       return Column(
+        spacing: 8,
         // mainAxisAlignment: MainAxisAlignment.center,
         // crossAxisAlignment: CrossAxisAlignment.center,
         children: AnimateList(
@@ -124,25 +128,31 @@ class _EmpConfirmState extends ConsumerState<EmpConfirm> {
     }
 
     return Scaffold(
-      floatingActionButton: FloatingActionButton(
-        backgroundColor: Colors.blue.shade700,
-        onPressed: () {
-          // Add your action here
-        },
-        child: Icon(Icons.add),
+      appBar: AppBar(
+        leading: BackButton(
+          onPressed: () {
+            setState(() {
+              userTimecard = null;
+            });
+
+            ref.read(employeeProvider.notifier).clearEmployee();
+            // ref.listen(employeeProvider, (previous, next) {
+            //   if (next == null) {
+            //     Navigator.of(context).pop();
+            //   }
+            // });
+          },
+        ),
       ),
-      appBar: AppBar(leading: BackButton(onPressed: () {})),
       backgroundColor: Colors.white,
-      body: Padding(
-        padding: const EdgeInsets.all(0),
-        child: Column(
-          spacing: 16,
-          // mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Column(
+      body: Row(
+        children: [
+          Expanded(flex: 2, child: Container(color: Colors.white)),
+          Expanded(
+            flex: 4,
+            child: Column(
               spacing: 12,
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
+
               children: [
                 // Text(userTimecard),
                 Row(
@@ -154,28 +164,33 @@ class _EmpConfirmState extends ConsumerState<EmpConfirm> {
                         fontSize: 34,
                         fontWeight: FontWeight.w500,
                       ),
-                    ),
+                    ).animate().shimmer().,
                   ],
                 ),
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
                       '${empRef!.firstName} ${empRef.lastName}',
                       // '${empRef.value!.firstName} ${empRef.value!.lastName}',
                       style: TextStyle(
-                        fontSize: 34,
+                        fontSize: 27,
                         fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                    Text(
+                      'ID: ${empRef.empId}',
+                      style: TextStyle(
+                        fontSize: 21,
+                        fontWeight: FontWeight.w400,
+                        color: Colors.grey.shade700,
                       ),
                     ),
                   ],
                 ),
-                ConstrainedBox(
-                  constraints: BoxConstraints(maxWidth: 420),
-                  child: Divider(),
-                ),
+                Divider(),
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     Text(
                       'Current Timecard',
@@ -186,15 +201,12 @@ class _EmpConfirmState extends ConsumerState<EmpConfirm> {
                     ),
                   ],
                 ),
-                Column(
-                  children: [
-                    isLoading ? CircularProgressIndicator() : buildActionBtns(),
-                  ],
-                ),
+                isLoading ? CircularProgressIndicator() : buildActionBtns(),
               ],
             ),
-          ],
-        ),
+          ),
+          Expanded(flex: 2, child: Container(color: Colors.white)),
+        ],
       ),
     );
   }

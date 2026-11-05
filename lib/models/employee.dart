@@ -10,6 +10,8 @@ abstract class EmployeeModel with _$EmployeeModel {
     required String firstName,
     required String lastName,
     required String uuid,
+    required String empId,
+    required String role,
   }) = _EmployeeModel;
 
   factory EmployeeModel.fromJson(Map<String, Object?> json) =>

@@ -10,35 +10,29 @@ class ClockOutBtn extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return ConstrainedBox(
-      constraints: BoxConstraints(maxWidth: 300),
-      child: SizedBox(
-        width: double.infinity,
-        child: ElevatedButton(
-          style: ElevatedButton.styleFrom(
-            padding: EdgeInsets.all(21),
-            backgroundColor: Colors.green.shade600,
-          ),
-          onPressed: () async {
-            final res = await Supabase.instance.client
-                .from('attendance')
-                .update({'clock_out': DateTime.now().toIso8601String()})
-                .eq('uuid', dbUuid)
-                .select();
-            if (res.isNotEmpty) {
-              ref.watch(employeeProvider.notifier).clearEmployee();
-              Navigator.pop(context);
-            }
-          },
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Icon(Icons.arrow_back_sharp),
-              SizedBox(width: 8),
-              Text('CLOCK OUT', style: TextStyle(fontSize: 16)),
-            ],
-          ),
-        ),
+    return ElevatedButton(
+      style: ElevatedButton.styleFrom(
+        padding: EdgeInsets.all(21),
+        backgroundColor: Colors.green.shade600,
+      ),
+      onPressed: () async {
+        final res = await Supabase.instance.client
+            .from('attendance')
+            .update({'clock_out': DateTime.now().toIso8601String()})
+            .eq('uuid', dbUuid)
+            .select();
+        if (res.isNotEmpty) {
+          ref.watch(employeeProvider.notifier).clearEmployee();
+          Navigator.pop(context);
+        }
+      },
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Icon(Icons.arrow_back_sharp),
+          SizedBox(width: 8),
+          Text('CLOCK OUT', style: TextStyle(fontSize: 16)),
+        ],
       ),
     );
   }

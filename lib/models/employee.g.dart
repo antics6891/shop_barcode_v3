@@ -11,6 +11,8 @@ _EmployeeModel _$EmployeeModelFromJson(Map<String, dynamic> json) =>
       firstName: json['firstName'] as String,
       lastName: json['lastName'] as String,
       uuid: json['uuid'] as String,
+      empId: json['empId'] as String,
+      role: json['role'] as String,
     );
 
 Map<String, dynamic> _$EmployeeModelToJson(_EmployeeModel instance) =>
@@ -18,4 +20,6 @@ Map<String, dynamic> _$EmployeeModelToJson(_EmployeeModel instance) =>
       'firstName': instance.firstName,
       'lastName': instance.lastName,
       'uuid': instance.uuid,
+      'empId': instance.empId,
+      'role': instance.role,
     };

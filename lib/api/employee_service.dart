@@ -4,7 +4,9 @@ class EmployeeService {
   Future<Map<String, dynamic>?> checkEmployee(String empId) async {
     final dbRes = await Supabase.instance.client
         .from('employees')
-        .select('uuid,firstName:first_name,lastName:last_name')
+        .select(
+          'uuid,firstName:first_name,lastName:last_name,empId:emp_id,role',
+        )
         .eq('emp_id', empId)
         .eq('is_active', true);
 

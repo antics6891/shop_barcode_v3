@@ -11,36 +11,30 @@ class LunchEndBtn extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     print(dbUuid);
-    return ConstrainedBox(
-      constraints: BoxConstraints(maxWidth: 300),
-      child: SizedBox(
-        width: double.infinity,
-        child: ElevatedButton(
-          style: ElevatedButton.styleFrom(
-            backgroundColor: Colors.deepPurple,
-            padding: EdgeInsets.all(21),
-          ),
-          onPressed: () async {
-            final res = await Supabase.instance.client
-                .from('attendance')
-                .update({'lunch_end': DateTime.now().toIso8601String()})
-                .eq('uuid', dbUuid)
-                .select();
+    return ElevatedButton(
+      style: ElevatedButton.styleFrom(
+        backgroundColor: Colors.deepPurple,
+        padding: EdgeInsets.all(21),
+      ),
+      onPressed: () async {
+        final res = await Supabase.instance.client
+            .from('attendance')
+            .update({'lunch_end': DateTime.now().toIso8601String()})
+            .eq('uuid', dbUuid)
+            .select();
 
-            if (res.isNotEmpty) {
-              ref.watch(employeeProvider.notifier).clearEmployee();
-              Navigator.of(context).pop();
-            }
-          },
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Icon(Icons.keyboard_double_arrow_right_outlined),
-              SizedBox(width: 8),
-              Text('END LUNCH', style: TextStyle(fontSize: 16)),
-            ],
-          ),
-        ),
+        if (res.isNotEmpty) {
+          ref.watch(employeeProvider.notifier).clearEmployee();
+          Navigator.of(context).pop();
+        }
+      },
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Icon(Icons.keyboard_double_arrow_right_outlined),
+          SizedBox(width: 8),
+          Text('END LUNCH', style: TextStyle(fontSize: 16)),
+        ],
       ),
     );
   }

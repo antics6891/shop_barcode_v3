@@ -41,11 +41,22 @@ class ScreenLandscape extends ConsumerStatefulWidget {
 class _ScreenLandscapeState extends ConsumerState<ScreenLandscape> {
   final idController = VirtualKeypadController();
   bool isLoading = false;
+  late FocusNode focusNode;
+
+  @override
+  void initState() {
+    super.initState();
+    focusNode = FocusNode();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      focusNode.requestFocus();
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     ref.listen(employeeProvider, (previous, next) {
       if (next!.uuid != null) {
+        idController.clear();
         Navigator.push(
           context,
           MaterialPageRoute(builder: (context) => EmpConfirm()),
@@ -57,7 +68,7 @@ class _ScreenLandscapeState extends ConsumerState<ScreenLandscape> {
         isLoading = true;
       });
       final res = await EmployeeService().checkEmployee(idController.text);
-
+      
       if (res != null) {
         setState(() {
           isLoading = false;
@@ -67,87 +78,68 @@ class _ScreenLandscapeState extends ConsumerState<ScreenLandscape> {
         setState(() {
           isLoading = false;
         });
-        idController.clear();
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text('No Valid Employee'),
-            backgroundColor: Colors.redAccent,
-          ),
-        );
+        // idController.clear();
+        ScaffoldMessenger.of(context)
+            .showSnackBar(
+              SnackBar(
+                content: Text('No Valid Employee'),
+                backgroundColor: Colors.redAccent,
+              ),
+            )
+            .closed
+            .then((value) => {idController.clear(), focusNode.requestFocus()});
       }
     }
 
     return Row(
-      spacing: 16,
-      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
+        Expanded(flex: 2, child: Container(color: Colors.white)),
         Expanded(
-          child: SizedBox(
-            height: double.infinity,
-            width: double.infinity,
-            child: Column(
-              spacing: 32,
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Text('ATTENDANCE KIOSK', style: TextStyle(fontSize: 27)),
-              ],
-            ),
-          ),
-        ),
-        Expanded(
-          child: SizedBox(
-            height: double.infinity,
-            width: double.infinity,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Text(
-                  'ENTER EMPLOYEE ID NUMBER',
-                  style: TextStyle(fontSize: 25),
-                ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 20),
-                  child: TextField(
-                    textAlign: TextAlign.center,
-                    autofocus: true,
-                    decoration: InputDecoration(
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(9),
-                      ),
-                    ),
-                    style: TextStyle(fontSize: 32, letterSpacing: 0.2),
-                    controller: idController,
+          flex: 4,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Text('ENTER EMPLOYEE ID NUMBER', style: TextStyle(fontSize: 21)),
+              TextField(
+                focusNode: focusNode,
+                textAlign: TextAlign.center,
+                autofocus: true,
+                decoration: InputDecoration(
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(9),
                   ),
                 ),
-                VirtualKeypad(
-                  theme: VirtualKeypadTheme(
-                    backgroundColor: Colors.white,
-                    keyColor: Colors.grey.shade500,
-                    keyTextSize: 30,
-                    keyTextColor: Colors.white,
-                    keyShadow: true,
-                    verticalGap: 10,
-                    horizontalGap: 10,
-                    actionKeyColor: Colors.blue.shade600,
-                    keyBorderRadius: 10,
-                  ),
+                style: TextStyle(fontSize: 32, letterSpacing: 0.2),
+                controller: idController,
+              ),
+              VirtualKeypad(
+                theme: VirtualKeypadTheme(
+                  backgroundColor: Colors.white,
+                  keyColor: Colors.grey.shade500,
+                  keyTextSize: 30,
+                  keyTextColor: Colors.white,
+                  keyShadow: true,
+                  verticalGap: 10,
+                  horizontalGap: 10,
+                  actionKeyColor: Colors.blue.shade600,
+                  keyBorderRadius: 10,
+                ),
 
-                  customLayout: pinLayout,
-                  type: KeyboardType.custom,
-                  standalone: true,
-                  onStandaloneInputAction: (action, text) async {
-                    if (action == KeyAction.done &&
-                        idController.text.isNotEmpty) {
-                      handleIdCheck();
-                    }
-                  },
-                ),
-              ],
-            ),
+                customLayout: pinLayout,
+                type: KeyboardType.custom,
+                standalone: true,
+                onStandaloneInputAction: (action, text) async {
+                  if (action == KeyAction.done &&
+                      idController.text.isNotEmpty) {
+                    handleIdCheck();
+                  }
+                },
+              ),
+            ],
           ),
         ),
+        Expanded(flex: 2, child: Container(color: Colors.white)),
       ],
     );
   }

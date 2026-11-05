@@ -11,32 +11,25 @@ class ClockInBtn extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return ConstrainedBox(
-      constraints: BoxConstraints(maxWidth: 300),
-      child: SizedBox(
-        width: double.infinity,
-        child: ElevatedButton(
-          style: ElevatedButton.styleFrom(padding: EdgeInsets.all(21)),
-          onPressed: () async {
-            final what =
-                await Supabase.instance.client.from('attendance').insert({
-                  'clock_in': DateTime.now().toIso8601String(),
-                  'emp_uuid': ref.watch(employeeProvider)!.uuid,
-                }).select();
-            if (what.isNotEmpty) {
-              ref.watch(employeeProvider.notifier).clearEmployee();
-              Navigator.of(context).pop();
-            }
-          },
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Icon(Icons.start),
-              SizedBox(width: 8),
-              Text('CLOCK IN', style: TextStyle(fontSize: 16)),
-            ],
-          ),
-        ),
+    return ElevatedButton(
+      style: ElevatedButton.styleFrom(padding: EdgeInsets.all(21)),
+      onPressed: () async {
+        final what = await Supabase.instance.client.from('attendance').insert({
+          'clock_in': DateTime.now().toIso8601String(),
+          'emp_uuid': ref.watch(employeeProvider)!.uuid,
+        }).select();
+        if (what.isNotEmpty) {
+          ref.watch(employeeProvider.notifier).clearEmployee();
+          Navigator.of(context).pop();
+        }
+      },
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Icon(Icons.start),
+          SizedBox(width: 8),
+          Text('CLOCK IN', style: TextStyle(fontSize: 16)),
+        ],
       ),
     );
   }

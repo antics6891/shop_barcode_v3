@@ -16,7 +16,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$EmployeeModel implements DiagnosticableTreeMixin {
 
- String get firstName; String get lastName; String get uuid;
+ String get firstName; String get lastName; String get uuid; String get empId; String get role;
 /// Create a copy of EmployeeModel
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -31,26 +31,26 @@ void debugFillProperties(DiagnosticPropertiesBuilder properties) {
   final _this = this as EmployeeModel;
   properties
     ..add(DiagnosticsProperty('type', 'EmployeeModel'))
-    ..add(DiagnosticsProperty('firstName', _this.firstName))..add(DiagnosticsProperty('lastName', _this.lastName))..add(DiagnosticsProperty('uuid', _this.uuid));
+    ..add(DiagnosticsProperty('firstName', _this.firstName))..add(DiagnosticsProperty('lastName', _this.lastName))..add(DiagnosticsProperty('uuid', _this.uuid))..add(DiagnosticsProperty('empId', _this.empId))..add(DiagnosticsProperty('role', _this.role));
 }
 
 @override
 bool operator ==(Object other) {
   final _this = this as EmployeeModel;
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is EmployeeModel&&(identical(other.firstName, _this.firstName) || other.firstName == _this.firstName)&&(identical(other.lastName, _this.lastName) || other.lastName == _this.lastName)&&(identical(other.uuid, _this.uuid) || other.uuid == _this.uuid));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is EmployeeModel&&(identical(other.firstName, _this.firstName) || other.firstName == _this.firstName)&&(identical(other.lastName, _this.lastName) || other.lastName == _this.lastName)&&(identical(other.uuid, _this.uuid) || other.uuid == _this.uuid)&&(identical(other.empId, _this.empId) || other.empId == _this.empId)&&(identical(other.role, _this.role) || other.role == _this.role));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
 int get hashCode {
   final _this = this as EmployeeModel;
-  return Object.hash(runtimeType,_this.firstName,_this.lastName,_this.uuid);
+  return Object.hash(runtimeType,_this.firstName,_this.lastName,_this.uuid,_this.empId,_this.role);
 }
 
 @override
 String toString({ DiagnosticLevel minLevel = DiagnosticLevel.info }) {
   final _this = this as EmployeeModel;
-  return 'EmployeeModel(firstName: ${_this.firstName}, lastName: ${_this.lastName}, uuid: ${_this.uuid})';
+  return 'EmployeeModel(firstName: ${_this.firstName}, lastName: ${_this.lastName}, uuid: ${_this.uuid}, empId: ${_this.empId}, role: ${_this.role})';
 }
 
 
@@ -61,7 +61,7 @@ abstract mixin class $EmployeeModelCopyWith<$Res>  {
   factory $EmployeeModelCopyWith(EmployeeModel value, $Res Function(EmployeeModel) _then) = _$EmployeeModelCopyWithImpl;
 @useResult
 $Res call({
- String firstName, String lastName, String uuid
+ String firstName, String lastName, String uuid, String empId, String role
 });
 
 
@@ -78,11 +78,13 @@ class _$EmployeeModelCopyWithImpl<$Res>
 
 /// Create a copy of EmployeeModel
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? firstName = null,Object? lastName = null,Object? uuid = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? firstName = null,Object? lastName = null,Object? uuid = null,Object? empId = null,Object? role = null,}) {
   return _then(EmployeeModel(
 firstName: null == firstName ? _self.firstName : firstName // ignore: cast_nullable_to_non_nullable
 as String,lastName: null == lastName ? _self.lastName : lastName // ignore: cast_nullable_to_non_nullable
 as String,uuid: null == uuid ? _self.uuid : uuid // ignore: cast_nullable_to_non_nullable
+as String,empId: null == empId ? _self.empId : empId // ignore: cast_nullable_to_non_nullable
+as String,role: null == role ? _self.role : role // ignore: cast_nullable_to_non_nullable
 as String,
   ));
 }
@@ -168,10 +170,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String firstName,  String lastName,  String uuid)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String firstName,  String lastName,  String uuid,  String empId,  String role)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _EmployeeModel() when $default != null:
-return $default(_that.firstName,_that.lastName,_that.uuid);case _:
+return $default(_that.firstName,_that.lastName,_that.uuid,_that.empId,_that.role);case _:
   return orElse();
 
 }
@@ -189,10 +191,10 @@ return $default(_that.firstName,_that.lastName,_that.uuid);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String firstName,  String lastName,  String uuid)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String firstName,  String lastName,  String uuid,  String empId,  String role)  $default,) {final _that = this;
 switch (_that) {
 case _EmployeeModel():
-return $default(_that.firstName,_that.lastName,_that.uuid);case _:
+return $default(_that.firstName,_that.lastName,_that.uuid,_that.empId,_that.role);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -209,10 +211,10 @@ return $default(_that.firstName,_that.lastName,_that.uuid);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String firstName,  String lastName,  String uuid)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String firstName,  String lastName,  String uuid,  String empId,  String role)?  $default,) {final _that = this;
 switch (_that) {
 case _EmployeeModel() when $default != null:
-return $default(_that.firstName,_that.lastName,_that.uuid);case _:
+return $default(_that.firstName,_that.lastName,_that.uuid,_that.empId,_that.role);case _:
   return null;
 
 }
@@ -224,12 +226,14 @@ return $default(_that.firstName,_that.lastName,_that.uuid);case _:
 @JsonSerializable()
 
 class _EmployeeModel with DiagnosticableTreeMixin implements EmployeeModel {
-  const _EmployeeModel({required this.firstName, required this.lastName, required this.uuid});
+  const _EmployeeModel({required this.firstName, required this.lastName, required this.uuid, required this.empId, required this.role});
   factory _EmployeeModel.fromJson(Map<String, dynamic> json) => _$EmployeeModelFromJson(json);
 
 @override final  String firstName;
 @override final  String lastName;
 @override final  String uuid;
+@override final  String empId;
+@override final  String role;
 
 /// Create a copy of EmployeeModel
 /// with the given fields replaced by the non-null parameter values.
@@ -245,23 +249,23 @@ Map<String, dynamic> toJson() {
 void debugFillProperties(DiagnosticPropertiesBuilder properties) {
     properties
     ..add(DiagnosticsProperty('type', 'EmployeeModel'))
-    ..add(DiagnosticsProperty('firstName', firstName))..add(DiagnosticsProperty('lastName', lastName))..add(DiagnosticsProperty('uuid', uuid));
+    ..add(DiagnosticsProperty('firstName', firstName))..add(DiagnosticsProperty('lastName', lastName))..add(DiagnosticsProperty('uuid', uuid))..add(DiagnosticsProperty('empId', empId))..add(DiagnosticsProperty('role', role));
 }
 
 @override
 bool operator ==(Object other) {
-    return identical(this, other) || (other.runtimeType == runtimeType&&other is _EmployeeModel&&(identical(other.firstName, firstName) || other.firstName == firstName)&&(identical(other.lastName, lastName) || other.lastName == lastName)&&(identical(other.uuid, uuid) || other.uuid == uuid));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _EmployeeModel&&(identical(other.firstName, firstName) || other.firstName == firstName)&&(identical(other.lastName, lastName) || other.lastName == lastName)&&(identical(other.uuid, uuid) || other.uuid == uuid)&&(identical(other.empId, empId) || other.empId == empId)&&(identical(other.role, role) || other.role == role));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
 int get hashCode {
-    return Object.hash(runtimeType,firstName,lastName,uuid);
+    return Object.hash(runtimeType,firstName,lastName,uuid,empId,role);
 }
 
 @override
 String toString({ DiagnosticLevel minLevel = DiagnosticLevel.info }) {
-    return 'EmployeeModel(firstName: $firstName, lastName: $lastName, uuid: $uuid)';
+    return 'EmployeeModel(firstName: $firstName, lastName: $lastName, uuid: $uuid, empId: $empId, role: $role)';
 }
 
 
@@ -272,7 +276,7 @@ abstract mixin class _$EmployeeModelCopyWith<$Res> implements $EmployeeModelCopy
   factory _$EmployeeModelCopyWith(_EmployeeModel value, $Res Function(_EmployeeModel) _then) = __$EmployeeModelCopyWithImpl;
 @override @useResult
 $Res call({
- String firstName, String lastName, String uuid
+ String firstName, String lastName, String uuid, String empId, String role
 });
 
 
@@ -289,11 +293,13 @@ class __$EmployeeModelCopyWithImpl<$Res>
 
 /// Create a copy of EmployeeModel
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? firstName = null,Object? lastName = null,Object? uuid = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? firstName = null,Object? lastName = null,Object? uuid = null,Object? empId = null,Object? role = null,}) {
   return _then(_EmployeeModel(
 firstName: null == firstName ? _self.firstName : firstName // ignore: cast_nullable_to_non_nullable
 as String,lastName: null == lastName ? _self.lastName : lastName // ignore: cast_nullable_to_non_nullable
 as String,uuid: null == uuid ? _self.uuid : uuid // ignore: cast_nullable_to_non_nullable
+as String,empId: null == empId ? _self.empId : empId // ignore: cast_nullable_to_non_nullable
+as String,role: null == role ? _self.role : role // ignore: cast_nullable_to_non_nullable
 as String,
   ));
 }
