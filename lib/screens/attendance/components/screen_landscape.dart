@@ -68,7 +68,7 @@ class _ScreenLandscapeState extends ConsumerState<ScreenLandscape> {
         isLoading = true;
       });
       final res = await EmployeeService().checkEmployee(idController.text);
-      
+
       if (res != null) {
         setState(() {
           isLoading = false;

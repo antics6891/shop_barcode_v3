@@ -21,6 +21,12 @@ class _EmpConfirmState extends ConsumerState<EmpConfirm> {
   bool isLoading = false;
   TimecardModel? userTimecard;
 
+  bool getDayOfWeek() {
+    final now = DateTime.now();
+    final dayOfWeek = now.weekday; // 1 = Monday, 7 = Sunday
+    return dayOfWeek == 4; // Return true if it's Thursday (4), false otherwise
+  }
+
   Future<void> fetchUserTimecard() async {
     try {
       final response = await TimecardService().getEmpTodayTimecard(
@@ -128,7 +134,48 @@ class _EmpConfirmState extends ConsumerState<EmpConfirm> {
     }
 
     return Scaffold(
+      floatingActionButton: getDayOfWeek()
+          ? FloatingActionButton(
+              onPressed: () {
+                showDialog(
+                  context: context,
+                  builder: (context) {
+                    return AlertDialog(
+                      backgroundColor: Colors.white,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                      content: Builder(
+                        builder: (context) {
+                          return SizedBox(
+                            height: MediaQuery.of(context).size.height * 0.8,
+                            width: MediaQuery.of(context).size.width * 0.6,
+                            child: Column(
+                              children: [
+                                Row(
+                                  children: [
+                                    Text(
+                                      'Weekly Timecard',
+                                      style: TextStyle(fontSize: 18),
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
+                          );
+                        },
+                      ),
+                    );
+                  },
+                );
+              },
+              child: Icon(Icons.timeline_outlined),
+            )
+          : null,
       appBar: AppBar(
+        backgroundColor: Colors.white,
+        surfaceTintColor: Colors.transparent,
+
         leading: BackButton(
           onPressed: () {
             setState(() {
@@ -158,13 +205,13 @@ class _EmpConfirmState extends ConsumerState<EmpConfirm> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text(
-                      userTimecard != null ? 'Welcome Back' : 'Welcome',
-                      style: TextStyle(
-                        fontSize: 34,
-                        fontWeight: FontWeight.w500,
-                      ),
-                    ).animate().shimmer().,
+                    // Text(
+                    //   userTimecard != null ? 'Welcome Back' : 'Welcome',
+                    //   style: TextStyle(
+                    //     fontSize: 34,
+                    //     fontWeight: FontWeight.w500,
+                    //   ),
+                    // ).animate().shimmer(),
                   ],
                 ),
                 Row(
@@ -189,18 +236,32 @@ class _EmpConfirmState extends ConsumerState<EmpConfirm> {
                   ],
                 ),
                 Divider(),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Text(
-                      'Current Timecard',
-                      style: TextStyle(
-                        fontSize: 18,
-                        color: Colors.grey.shade700,
-                      ),
-                    ),
-                  ],
-                ),
+                userTimecard != null
+                    ? Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Text(
+                            'Today\'s Timecard',
+                            style: TextStyle(
+                              fontSize: 18,
+                              color: Colors.grey.shade700,
+                            ),
+                          ),
+                        ],
+                      )
+                    : SizedBox.shrink(),
+                // Row(
+                //   mainAxisAlignment: MainAxisAlignment.start,
+                //   children: [
+                //     Text(
+                //       'Current Timecard',
+                //       style: TextStyle(
+                //         fontSize: 18,
+                //         color: Colors.grey.shade700,
+                //       ),
+                //     ),
+                //   ],
+                // ),
                 isLoading ? CircularProgressIndicator() : buildActionBtns(),
               ],
             ),
