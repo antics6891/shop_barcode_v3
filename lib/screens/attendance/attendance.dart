@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
+import 'package:shop_barcode_scan_v3/providers/employee_provider.dart';
 import 'package:shop_barcode_scan_v3/providers/error_provider.dart';
+import 'package:shop_barcode_scan_v3/screens/attendance/components/emp_timecard.dart';
+import 'package:shop_barcode_scan_v3/screens/attendance/components/id_input.dart';
 import 'package:shop_barcode_scan_v3/screens/attendance/components/screen_landscape.dart';
-import 'package:shop_barcode_scan_v3/screens/attendance/components/screen_portrait.dart';
+import 'package:shop_barcode_scan_v3/screens/attendance/emp_confirm.dart';
 import 'package:toastification/toastification.dart';
 
 class Attendance extends ConsumerStatefulWidget {
@@ -76,7 +79,12 @@ class _AttendanceState extends ConsumerState<Attendance> {
         // child: MediaQuery.of(context).orientation == Orientation.landscape
         //     ? ScreenLandscape()
         //     : ScreenPortrait(),
-        child: ScreenLandscape(),
+        // child: ScreenLandscape(),
+        child: ref.watch(employeeProvider) == null
+            // ? ScreenLandscape()
+            ? IdInput()
+            // : EmpConfirm(),
+            : EmpTimecard(),
       ),
     );
   }

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:shop_barcode_scan_v3/providers/employee_provider.dart';
 import 'package:shop_barcode_scan_v3/providers/error_provider.dart';
 import 'package:virtual_keypad/widgets.dart';
 

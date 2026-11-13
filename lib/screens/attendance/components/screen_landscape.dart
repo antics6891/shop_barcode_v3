@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shop_barcode_scan_v3/api/employee_service.dart';
-import 'package:shop_barcode_scan_v3/models/employee.dart';
 import 'package:shop_barcode_scan_v3/providers/employee_provider.dart';
-import 'package:shop_barcode_scan_v3/providers/error_provider.dart';
 import 'package:shop_barcode_scan_v3/screens/attendance/emp_confirm.dart';
 import 'package:virtual_keypad/virtual_keypad.dart';
 
@@ -55,14 +53,14 @@ class _ScreenLandscapeState extends ConsumerState<ScreenLandscape> {
   @override
   Widget build(BuildContext context) {
     ref.listen(employeeProvider, (previous, next) {
-      if (next!.uuid != null) {
-        idController.clear();
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => EmpConfirm()),
-        );
-      }
+      print(next);
+      idController.clear();
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => EmpConfirm()),
+      );
     });
+
     void handleIdCheck() async {
       setState(() {
         isLoading = true;
@@ -73,6 +71,7 @@ class _ScreenLandscapeState extends ConsumerState<ScreenLandscape> {
         setState(() {
           isLoading = false;
         });
+
         ref.read(employeeProvider.notifier).setEmployee(res);
       } else {
         setState(() {

@@ -1,8 +1,5 @@
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:shop_barcode_scan_v3/models/employee.dart';
-import 'package:shop_barcode_scan_v3/providers/error_provider.dart';
-import 'package:shop_barcode_scan_v3/providers/timecard_provider.dart' as tc;
-import 'package:supabase_flutter/supabase_flutter.dart';
 
 part 'employee_provider.g.dart';
 

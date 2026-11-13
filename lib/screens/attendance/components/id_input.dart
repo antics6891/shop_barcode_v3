@@ -1,6 +1,31 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:shop_barcode_scan_v3/api/employee_service.dart';
 import 'package:shop_barcode_scan_v3/providers/employee_provider.dart';
+import 'package:virtual_keypad/virtual_keypad.dart';
+
+final pinLayout = [
+  [
+    VirtualKey.character(text: '1'),
+    VirtualKey.character(text: '2'),
+    VirtualKey.character(text: '3'),
+  ],
+  [
+    VirtualKey.character(text: '4'),
+    VirtualKey.character(text: '5'),
+    VirtualKey.character(text: '6'),
+  ],
+  [
+    VirtualKey.character(text: '7'),
+    VirtualKey.character(text: '8'),
+    VirtualKey.character(text: '9'),
+  ],
+  [
+    VirtualKey.action(action: KeyAction.backSpace),
+    VirtualKey.character(text: '0'),
+    VirtualKey.action(action: KeyAction.done, label: '✓'),
+  ],
+];
 
 class IdInput extends ConsumerStatefulWidget {
   const IdInput({super.key});
@@ -11,19 +36,96 @@ class IdInput extends ConsumerStatefulWidget {
 
 class _IdInputState extends ConsumerState<IdInput> {
   final controller = TextEditingController();
+  final idController = VirtualKeypadController();
+  bool isLoading = false;
+  late FocusNode focusNode;
+
+  void handleIdCheck() async {
+    setState(() {
+      isLoading = true;
+    });
+    final res = await EmployeeService().checkEmployee(idController.text);
+
+    if (res != null) {
+      setState(() {
+        isLoading = false;
+      });
+
+      ref.read(employeeProvider.notifier).setEmployee(res);
+    } else {
+      setState(() {
+        isLoading = false;
+      });
+      // idController.clear();
+      ScaffoldMessenger.of(context)
+          .showSnackBar(
+            SnackBar(
+              content: Text('No Valid Employee'),
+              backgroundColor: Colors.redAccent,
+            ),
+          )
+          .closed
+          .then((value) => {idController.clear(), focusNode.requestFocus()});
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    focusNode = FocusNode();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      focusNode.requestFocus();
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
-    ref.listen(employeeProvider, (previous, next) => controller.clear());
-    return TextField(
-      decoration: InputDecoration(
-        label: Text("ID Number"),
-        border: OutlineInputBorder(borderRadius: BorderRadius.circular(9)),
+    return Padding(
+      padding: const EdgeInsets.all(40.0),
+      child: Column(
+        spacing: 32,
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          // Text('ENTER EMPLOYEE ID NUMBER', style: TextStyle(fontSize: 21)),
+          TextField(
+            focusNode: focusNode,
+            textAlign: TextAlign.center,
+            autofocus: true,
+
+            decoration: InputDecoration(
+              label: Text('ID Number'),
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(9),
+              ),
+            ),
+            style: TextStyle(fontSize: 40, letterSpacing: 0.2),
+            controller: idController,
+          ),
+          VirtualKeypad(
+            theme: VirtualKeypadTheme(
+              backgroundColor: Colors.white,
+              keyColor: Colors.grey.shade500,
+              keyTextSize: 30,
+              keyTextColor: Colors.white,
+              keyShadow: true,
+              verticalGap: 10,
+              horizontalGap: 10,
+              actionKeyColor: Colors.blue.shade600,
+              keyBorderRadius: 10,
+            ),
+
+            customLayout: pinLayout,
+            type: KeyboardType.custom,
+            standalone: true,
+            onStandaloneInputAction: (action, text) async {
+              if (action == KeyAction.done && idController.text.isNotEmpty) {
+                handleIdCheck();
+              }
+            },
+          ),
+        ],
       ),
-      controller: controller,
-      autofocus: true,
-      textAlign: TextAlign.center,
-      style: TextStyle(fontSize: 30),
     );
   }
 }

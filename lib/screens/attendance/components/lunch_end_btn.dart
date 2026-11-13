@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shop_barcode_scan_v3/providers/employee_provider.dart';
-import 'package:shop_barcode_scan_v3/providers/timecard_provider.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 class LunchEndBtn extends ConsumerWidget {

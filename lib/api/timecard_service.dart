@@ -1,5 +1,3 @@
-import 'package:flutter/material.dart';
-import 'package:shop_barcode_scan_v3/models/employee.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 class TimecardService {
@@ -9,11 +7,6 @@ class TimecardService {
       today.year,
       today.month,
       today.day,
-      0,
-      0,
-      0,
-      0,
-      0,
     ).toIso8601String();
     print(formattedDate);
     List<Map<String, dynamic>> response = await Supabase.instance.client
@@ -30,15 +23,22 @@ class TimecardService {
     }
   }
 
-  Future<String> createEmployeeTimecard(String empUuid) async {
+  Future<List<Map<String, dynamic>>> createEmployeeTimecard(
+    String empUuid,
+  ) async {
+    DateTime today = DateTime.now();
+    final String dateOnly = DateTime(
+      today.year,
+      today.month,
+      today.day,
+    ).toIso8601String();
+
     final what = await Supabase.instance.client.from('attendance').insert({
-      'emp_uuid',
-      empUuid,
+      'clock_in': DateTime.now().toIso8601String(),
+      'emp_uuid': empUuid,
+      'created_at': dateOnly,
     }).select();
-    if (what.isNotEmpty) {
-      return 'good';
-    } else {
-      return 'bad';
-    }
+
+    return what;
   }
 }

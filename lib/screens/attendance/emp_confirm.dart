@@ -182,7 +182,7 @@ class _EmpConfirmState extends ConsumerState<EmpConfirm> {
               userTimecard = null;
             });
 
-            ref.read(employeeProvider.notifier).clearEmployee();
+            // ref.read(employeeProvider.notifier).clearEmployee();
             // ref.listen(employeeProvider, (previous, next) {
             //   if (next == null) {
             //     Navigator.of(context).pop();
