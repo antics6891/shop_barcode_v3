@@ -1,8 +1,8 @@
 #!/bin/sh
 # This is a generated file; do not edit or check into version control.
-export "FLUTTER_ROOT=C:\Users\antic\dev\flutter"
-export "FLUTTER_APPLICATION_PATH=C:\Users\antic\Desktop\shop_barcode_v3"
-export "FLUTTER_FRAMEWORK_SWIFT_PACKAGE_PATH=C:\Users\antic\Desktop\shop_barcode_v3\ios\Flutter\ephemeral\Packages\.packages\FlutterFramework"
+export "FLUTTER_ROOT=C:\Users\richard\dev\flutter"
+export "FLUTTER_APPLICATION_PATH=C:\Users\richard\Desktop\CODE PROJECTS\Scan Station\shop_barcode_scan_v3"
+export "FLUTTER_FRAMEWORK_SWIFT_PACKAGE_PATH=C:\Users\richard\Desktop\CODE PROJECTS\Scan Station\shop_barcode_scan_v3\ios\Flutter\ephemeral\Packages\.packages\FlutterFramework"
 export "COCOAPODS_PARALLEL_CODE_SIGN=true"
 export "FLUTTER_TARGET=lib\main.dart"
 export "FLUTTER_BUILD_DIR=build"

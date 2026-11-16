@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:shop_barcode_scan_v3/api/timecard_service.dart';
 import 'package:shop_barcode_scan_v3/models/timecard.dart';
 import 'package:shop_barcode_scan_v3/providers/employee_provider.dart';
@@ -8,7 +9,9 @@ import 'package:shop_barcode_scan_v3/screens/attendance/components/clock_in_btn.
 import 'package:shop_barcode_scan_v3/screens/attendance/components/clock_out_btn.dart';
 import 'package:shop_barcode_scan_v3/screens/attendance/components/lunch_end_btn.dart';
 import 'package:shop_barcode_scan_v3/screens/attendance/components/lunch_start_btn.dart';
+import 'package:shop_barcode_scan_v3/screens/attendance/components/lunch_timestamp_card.dart';
 import 'package:shop_barcode_scan_v3/screens/attendance/components/timestamp_card.dart';
+import 'package:toggle_switch/toggle_switch.dart';
 
 class EmpTimecard extends ConsumerStatefulWidget {
   const EmpTimecard({super.key});
@@ -20,6 +23,7 @@ class EmpTimecard extends ConsumerStatefulWidget {
 class _IdInputState extends ConsumerState<EmpTimecard> {
   bool isLoading = false;
   TimecardModel? userTimecard;
+  int dayOrWeek = 0;
 
   Future<void> fetchUserTimecard() async {
     try {
@@ -119,42 +123,97 @@ class _IdInputState extends ConsumerState<EmpTimecard> {
   @override
   Widget build(BuildContext context) {
     final empRef = ref.watch(employeeProvider);
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    return Center(
+      child: ConstrainedBox(
+        constraints: BoxConstraints(maxWidth: 400),
+        child: Column(
+          // mainAxisAlignment: MainAxisAlignment.spaceAround,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Text(
-              '${empRef!.firstName} ${empRef.lastName}',
-              // '${empRef.value!.firstName} ${empRef.value!.lastName}',
-              style: TextStyle(fontSize: 27, fontWeight: FontWeight.w500),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  dayOrWeek == 0 ? 'Daily Timecard' : 'Weekly Timecard',
+                  style: TextStyle(fontSize: 21, fontWeight: FontWeight(600)),
+                ),
+                ToggleSwitch(
+                  animate: true,
+                  animationDuration: 300,
+                  activeBgColor: [Colors.blue.shade500],
+                  inactiveBgColor: Colors.grey.shade200,
+                  initialLabelIndex: dayOrWeek,
+                  totalSwitches: 2,
+                  labels: ['Daily', 'Weekly'],
+                  onToggle: (index) {
+                    setState(() {
+                      dayOrWeek = index!;
+                    });
+                  },
+                ),
+              ],
             ),
-            Text(
-              'ID: ${empRef.empId}',
-              style: TextStyle(
-                fontSize: 21,
-                fontWeight: FontWeight.w400,
-                color: Colors.grey.shade700,
-              ),
+            Divider(),
+            Column(
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      '${empRef!.firstName} ${empRef.lastName}',
+                      // '${empRef.value!.firstName} ${empRef.value!.lastName}',
+                      style: TextStyle(
+                        fontSize: 21,
+                        fontWeight: FontWeight.w300,
+                      ),
+                    ),
+                    Text(
+                      'ID: ${empRef.empId}',
+                      style: TextStyle(
+                        fontSize: 19,
+                        fontWeight: FontWeight.w300,
+                      ),
+                    ),
+                  ],
+                ),
+                SizedBox(height: 8),
+                Row(
+                  children: [
+                    Text(
+                      'UUID: ${empRef.uuid}',
+                      style: TextStyle(
+                        fontSize: 15,
+                        color: Colors.grey.shade500,
+                      ),
+                    ),
+                  ],
+                ),
+                Divider(),
+              ],
             ),
+
+            // userTimecard != null
+            //     ? Row(
+            //         mainAxisAlignment: MainAxisAlignment.start,
+            //         children: [
+            //           Text(
+            //             'Today\'s Timecard',
+            //             style: TextStyle(
+            //               fontSize: 18,
+            //               color: Colors.grey.shade700,
+            //             ),
+            //           ),
+            //         ],
+            //       )
+            //     : SizedBox.shrink(),
+            // isLoading ? CircularProgressIndicator() : buildActionBtns(),
+            isLoading
+                ? CircularProgressIndicator()
+                // : LunchTimestampCard(userTimecard: userTimecard),
+                : buildActionBtns(),
           ],
         ),
-        Divider(),
-        userTimecard != null
-            ? Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  Text(
-                    'Today\'s Timecard',
-                    style: TextStyle(fontSize: 18, color: Colors.grey.shade700),
-                  ),
-                ],
-              )
-            : SizedBox.shrink(),
-        isLoading ? CircularProgressIndicator() : buildActionBtns(),
-      ],
+      ),
     );
   }
 }

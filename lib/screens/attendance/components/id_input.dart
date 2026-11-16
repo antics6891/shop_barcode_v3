@@ -80,51 +80,53 @@ class _IdInputState extends ConsumerState<IdInput> {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(40.0),
-      child: Column(
-        spacing: 32,
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          // Text('ENTER EMPLOYEE ID NUMBER', style: TextStyle(fontSize: 21)),
-          TextField(
-            focusNode: focusNode,
-            textAlign: TextAlign.center,
-            autofocus: true,
+    return Center(
+      child: ConstrainedBox(
+        constraints: BoxConstraints(maxWidth: 400),
+        child: Column(
+          spacing: 24,
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            // Text('ENTER EMPLOYEE ID NUMBER', style: TextStyle(fontSize: 21)),
+            TextField(
+              focusNode: focusNode,
+              textAlign: TextAlign.center,
+              autofocus: true,
 
-            decoration: InputDecoration(
-              label: Text('ID Number'),
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(9),
+              decoration: InputDecoration(
+                label: Text('ID Number'),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(9),
+                ),
               ),
+              style: TextStyle(fontSize: 40, letterSpacing: 0.2),
+              controller: idController,
             ),
-            style: TextStyle(fontSize: 40, letterSpacing: 0.2),
-            controller: idController,
-          ),
-          VirtualKeypad(
-            theme: VirtualKeypadTheme(
-              backgroundColor: Colors.white,
-              keyColor: Colors.grey.shade500,
-              keyTextSize: 30,
-              keyTextColor: Colors.white,
-              keyShadow: true,
-              verticalGap: 10,
-              horizontalGap: 10,
-              actionKeyColor: Colors.blue.shade600,
-              keyBorderRadius: 10,
-            ),
+            VirtualKeypad(
+              theme: VirtualKeypadTheme(
+                backgroundColor: Colors.white,
+                keyColor: Colors.grey.shade500,
+                keyTextSize: 30,
+                keyTextColor: Colors.white,
+                keyShadow: true,
+                verticalGap: 10,
+                horizontalGap: 10,
+                actionKeyColor: Colors.blue.shade600,
+                keyBorderRadius: 10,
+              ),
 
-            customLayout: pinLayout,
-            type: KeyboardType.custom,
-            standalone: true,
-            onStandaloneInputAction: (action, text) async {
-              if (action == KeyAction.done && idController.text.isNotEmpty) {
-                handleIdCheck();
-              }
-            },
-          ),
-        ],
+              customLayout: pinLayout,
+              type: KeyboardType.custom,
+              standalone: true,
+              onStandaloneInputAction: (action, text) async {
+                if (action == KeyAction.done && idController.text.isNotEmpty) {
+                  handleIdCheck();
+                }
+              },
+            ),
+          ],
+        ),
       ),
     );
   }

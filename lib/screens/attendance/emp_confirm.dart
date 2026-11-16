@@ -193,6 +193,7 @@ class _EmpConfirmState extends ConsumerState<EmpConfirm> {
       ),
       backgroundColor: Colors.white,
       body: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
         spacing: 12,
         children: [
           Row(
@@ -213,24 +214,23 @@ class _EmpConfirmState extends ConsumerState<EmpConfirm> {
               ),
             ],
           ),
-          Divider(),
-          userTimecard != null
-              ? Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Text(
-                      'Today\'s Timecard',
-                      style: TextStyle(
-                        fontSize: 18,
-                        color: Colors.grey.shade700,
-                      ),
-                    ),
-                  ],
-                )
-              : SizedBox.shrink(),
+          // Divider(),
+          // userTimecard != null
+          //     ? Row(
+          //         mainAxisAlignment: MainAxisAlignment.start,
+          //         children: [
+          //           Text(
+          //             'Today\'s Timecard',
+          //             style: TextStyle(
+          //               fontSize: 18,
+          //               color: Colors.grey.shade700,
+          //             ),
+          //           ),
+          //         ],
+          //       )
+          //     : SizedBox.shrink(),
 
           // isLoading ? CircularProgressIndicator() : buildActionBtns(),
-          Expanded(child: Text('Expanded')),
         ],
       ),
     );

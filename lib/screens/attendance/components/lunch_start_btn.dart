@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:shop_barcode_scan_v3/providers/employee_provider.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
+import 'package:toastification/toastification.dart';
+import 'package:flutter_slidable/flutter_slidable.dart';
 
 class LunchStartBtn extends ConsumerWidget {
   String dbUuid;
@@ -22,17 +25,20 @@ class LunchStartBtn extends ConsumerWidget {
             .select();
         if (res.isNotEmpty) {
           if (context.mounted) {
-            ScaffoldMessenger.of(context)
-                .showSnackBar(
-                  SnackBar(
-                    backgroundColor: Colors.green,
-                    content: Text('Lunch Started!!'),
-                  ),
-                )
-                .closed
-                .then((value) {
+            toastification.show(
+              context: context,
+              title: Text('Lunch Started!'),
+              autoCloseDuration: const Duration(seconds: 2),
+              type: ToastificationType.info,
+              style: ToastificationStyle.flatColored,
+              alignment: Alignment.topCenter,
+              icon: FaIcon(FontAwesomeIcons.hourglassHalf),
+              callbacks: ToastificationCallbacks(
+                onAutoCompleteCompleted: (value) {
                   ref.watch(employeeProvider.notifier).clearEmployee();
-                });
+                },
+              ),
+            );
           }
         }
       },
