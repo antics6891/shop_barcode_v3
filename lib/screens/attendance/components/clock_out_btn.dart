@@ -21,8 +21,21 @@ class ClockOutBtn extends ConsumerWidget {
             .eq('uuid', dbUuid)
             .select();
         if (res.isNotEmpty) {
-          ref.watch(employeeProvider.notifier).clearEmployee();
-          Navigator.pop(context);
+          if (context.mounted) {
+            ScaffoldMessenger.of(context)
+                .showSnackBar(
+                  SnackBar(
+                    backgroundColor: Colors.green,
+                    content: Text('You are clocked out!'),
+                  ),
+                )
+                .closed
+                .then((value) {
+                  ref.watch(employeeProvider.notifier).clearEmployee();
+                });
+          }
+          // ref.watch(employeeProvider.notifier).clearEmployee();
+          // Navigator.pop(context);
         }
       },
       child: Row(

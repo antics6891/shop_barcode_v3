@@ -21,8 +21,19 @@ class LunchStartBtn extends ConsumerWidget {
             .eq('uuid', dbUuid)
             .select();
         if (res.isNotEmpty) {
-          ref.watch(employeeProvider.notifier).clearEmployee();
-          Navigator.of(context).pop(true);
+          if (context.mounted) {
+            ScaffoldMessenger.of(context)
+                .showSnackBar(
+                  SnackBar(
+                    backgroundColor: Colors.green,
+                    content: Text('Lunch Started!!'),
+                  ),
+                )
+                .closed
+                .then((value) {
+                  ref.watch(employeeProvider.notifier).clearEmployee();
+                });
+          }
         }
       },
       child: Row(

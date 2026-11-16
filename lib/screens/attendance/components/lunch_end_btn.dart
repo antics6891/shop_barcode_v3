@@ -23,8 +23,19 @@ class LunchEndBtn extends ConsumerWidget {
             .select();
 
         if (res.isNotEmpty) {
-          ref.watch(employeeProvider.notifier).clearEmployee();
-          Navigator.of(context).pop();
+          if (context.mounted) {
+            ScaffoldMessenger.of(context)
+                .showSnackBar(
+                  SnackBar(
+                    backgroundColor: Colors.green,
+                    content: Text('Your Lunch Ended!!'),
+                  ),
+                )
+                .closed
+                .then((value) {
+                  ref.watch(employeeProvider.notifier).clearEmployee();
+                });
+          }
         }
       },
       child: Row(

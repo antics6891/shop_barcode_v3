@@ -100,6 +100,8 @@ class _IdInputState extends ConsumerState<EmpTimecard> {
     }
 
     return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.center,
       spacing: 8,
       // mainAxisAlignment: MainAxisAlignment.center,
       // crossAxisAlignment: CrossAxisAlignment.center,
@@ -117,78 +119,41 @@ class _IdInputState extends ConsumerState<EmpTimecard> {
   @override
   Widget build(BuildContext context) {
     final empRef = ref.watch(employeeProvider);
-    return Row(
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        Expanded(flex: 2, child: Container(color: Colors.white)),
-        Expanded(
-          flex: 4,
-          child: Column(
-            spacing: 12,
-
-            children: [
-              // Text(userTimecard),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  // Text(
-                  //   userTimecard != null ? 'Welcome Back' : 'Welcome',
-                  //   style: TextStyle(
-                  //     fontSize: 34,
-                  //     fontWeight: FontWeight.w500,
-                  //   ),
-                  // ).animate().shimmer(),
-                ],
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text(
+              '${empRef!.firstName} ${empRef.lastName}',
+              // '${empRef.value!.firstName} ${empRef.value!.lastName}',
+              style: TextStyle(fontSize: 27, fontWeight: FontWeight.w500),
+            ),
+            Text(
+              'ID: ${empRef.empId}',
+              style: TextStyle(
+                fontSize: 21,
+                fontWeight: FontWeight.w400,
+                color: Colors.grey.shade700,
               ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    '${empRef!.firstName} ${empRef.lastName}',
-                    // '${empRef.value!.firstName} ${empRef.value!.lastName}',
-                    style: TextStyle(fontSize: 27, fontWeight: FontWeight.w500),
-                  ),
-                  Text(
-                    'ID: ${empRef.empId}',
-                    style: TextStyle(
-                      fontSize: 21,
-                      fontWeight: FontWeight.w400,
-                      color: Colors.grey.shade700,
-                    ),
-                  ),
-                ],
-              ),
-              Divider(),
-              userTimecard != null
-                  ? Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        Text(
-                          'Today\'s Timecard',
-                          style: TextStyle(
-                            fontSize: 18,
-                            color: Colors.grey.shade700,
-                          ),
-                        ),
-                      ],
-                    )
-                  : SizedBox.shrink(),
-              // Row(
-              //   mainAxisAlignment: MainAxisAlignment.start,
-              //   children: [
-              //     Text(
-              //       'Current Timecard',
-              //       style: TextStyle(
-              //         fontSize: 18,
-              //         color: Colors.grey.shade700,
-              //       ),
-              //     ),
-              //   ],
-              // ),
-              isLoading ? CircularProgressIndicator() : buildActionBtns(),
-            ],
-          ),
+            ),
+          ],
         ),
-        Expanded(flex: 2, child: Container(color: Colors.white)),
+        Divider(),
+        userTimecard != null
+            ? Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Text(
+                    'Today\'s Timecard',
+                    style: TextStyle(fontSize: 18, color: Colors.grey.shade700),
+                  ),
+                ],
+              )
+            : SizedBox.shrink(),
+        isLoading ? CircularProgressIndicator() : buildActionBtns(),
       ],
     );
   }

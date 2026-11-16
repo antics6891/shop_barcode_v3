@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
+import 'package:shop_barcode_scan_v3/api/auth_service.dart';
 import 'package:shop_barcode_scan_v3/providers/employee_provider.dart';
 import 'package:shop_barcode_scan_v3/providers/error_provider.dart';
 import 'package:shop_barcode_scan_v3/screens/attendance/components/emp_timecard.dart';
 import 'package:shop_barcode_scan_v3/screens/attendance/components/id_input.dart';
 import 'package:shop_barcode_scan_v3/screens/attendance/components/screen_landscape.dart';
 import 'package:shop_barcode_scan_v3/screens/attendance/emp_confirm.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:toastification/toastification.dart';
 
 class Attendance extends ConsumerStatefulWidget {
@@ -71,6 +73,21 @@ class _AttendanceState extends ConsumerState<Attendance> {
               );
             },
           ),
+          SizedBox(width: 12),
+          ref.watch(employeeProvider) == null
+              ? IconButton.filled(
+                  onPressed: () {
+                    AuthService().signOut();
+                  },
+                  icon: Icon(Icons.logout_outlined, color: Colors.white),
+                )
+              : IconButton.outlined(
+                  color: Colors.transparent,
+                  onPressed: () {
+                    ref.watch(employeeProvider.notifier).clearEmployee();
+                  },
+                  icon: Icon(Icons.refresh_outlined, color: Colors.red),
+                ),
         ],
       ),
       backgroundColor: Colors.white,

@@ -13,10 +13,6 @@ class ClockInBtn extends ConsumerWidget {
     return ElevatedButton(
       style: ElevatedButton.styleFrom(padding: EdgeInsets.all(21)),
       onPressed: () async {
-        // final what = await Supabase.instance.client.from('attendance').insert({
-        //   'clock_in': DateTime.now().toIso8601String(),
-        //   'emp_uuid': ref.watch(employeeProvider)!.uuid,
-        // }).select();
         final what = TimecardService().createEmployeeTimecard(
           ref.watch(employeeProvider)!.uuid,
         );
@@ -25,8 +21,21 @@ class ClockInBtn extends ConsumerWidget {
             if (value.isNotEmpty)
               {
                 // ref.watch(employeeProvider.notifier).clearEmployee(),
-
-                Navigator.of(context).pop(),
+                if (context.mounted)
+                  {
+                    ScaffoldMessenger.of(context)
+                        .showSnackBar(
+                          SnackBar(
+                            backgroundColor: Colors.green,
+                            content: Text('You are clocked in!!'),
+                          ),
+                        )
+                        .closed
+                        .then((value) {
+                          ref.watch(employeeProvider.notifier).clearEmployee();
+                        }),
+                  },
+                // Navigator.of(context).pop(),
               },
           },
         );
