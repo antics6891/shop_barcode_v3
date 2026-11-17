@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:shop_barcode_scan_v3/api/timecard_service.dart';
 import 'package:shop_barcode_scan_v3/models/timecard.dart';
 import 'package:shop_barcode_scan_v3/providers/employee_provider.dart';
@@ -36,7 +37,6 @@ class _IdInputState extends ConsumerState<EmpTimecard> {
             ? null
             : TimecardModel.fromJson(response);
       });
-      print(response);
     } on Exception catch (e) {
       print(e);
     }
@@ -103,19 +103,21 @@ class _IdInputState extends ConsumerState<EmpTimecard> {
       }
     }
 
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      crossAxisAlignment: CrossAxisAlignment.center,
-      spacing: 8,
-      // mainAxisAlignment: MainAxisAlignment.center,
-      // crossAxisAlignment: CrossAxisAlignment.center,
-      children: AnimateList(
-        interval: Duration(milliseconds: 300),
+    return Expanded(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        spacing: 8,
+        // mainAxisAlignment: MainAxisAlignment.center,
+        // crossAxisAlignment: CrossAxisAlignment.center,
+        children: AnimateList(
+          interval: Duration(milliseconds: 300),
 
-        effects: [FlipEffect()],
-        children: buttons
-            .map((e) => Padding(padding: EdgeInsetsGeometry.all(0), child: e))
-            .toList(),
+          effects: [FlipEffect()],
+          children: buttons
+              .map((e) => Padding(padding: EdgeInsetsGeometry.all(0), child: e))
+              .toList(),
+        ),
       ),
     );
   }
@@ -134,22 +136,8 @@ class _IdInputState extends ConsumerState<EmpTimecard> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  dayOrWeek == 0 ? 'Daily Timecard' : 'Weekly Timecard',
+                  'Daily Timecard',
                   style: TextStyle(fontSize: 21, fontWeight: FontWeight(600)),
-                ),
-                ToggleSwitch(
-                  animate: true,
-                  animationDuration: 300,
-                  activeBgColor: [Colors.blue.shade500],
-                  inactiveBgColor: Colors.grey.shade200,
-                  initialLabelIndex: dayOrWeek,
-                  totalSwitches: 2,
-                  labels: ['Daily', 'Weekly'],
-                  onToggle: (index) {
-                    setState(() {
-                      dayOrWeek = index!;
-                    });
-                  },
                 ),
               ],
             ),
@@ -161,7 +149,6 @@ class _IdInputState extends ConsumerState<EmpTimecard> {
                   children: [
                     Text(
                       '${empRef!.firstName} ${empRef.lastName}',
-                      // '${empRef.value!.firstName} ${empRef.value!.lastName}',
                       style: TextStyle(
                         fontSize: 21,
                         fontWeight: FontWeight.w300,
@@ -191,26 +178,7 @@ class _IdInputState extends ConsumerState<EmpTimecard> {
                 Divider(),
               ],
             ),
-
-            // userTimecard != null
-            //     ? Row(
-            //         mainAxisAlignment: MainAxisAlignment.start,
-            //         children: [
-            //           Text(
-            //             'Today\'s Timecard',
-            //             style: TextStyle(
-            //               fontSize: 18,
-            //               color: Colors.grey.shade700,
-            //             ),
-            //           ),
-            //         ],
-            //       )
-            //     : SizedBox.shrink(),
-            // isLoading ? CircularProgressIndicator() : buildActionBtns(),
-            isLoading
-                ? CircularProgressIndicator()
-                // : LunchTimestampCard(userTimecard: userTimecard),
-                : buildActionBtns(),
+            isLoading ? CircularProgressIndicator() : buildActionBtns(),
           ],
         ),
       ),

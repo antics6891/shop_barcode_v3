@@ -13,16 +13,17 @@ class TimestampCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      color: Colors.white,
+      color: Colors.grey.shade100,
       child: Padding(
         padding: EdgeInsets.all(16),
         child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
             Text(
               label,
               style: TextStyle(fontSize: 19, fontWeight: FontWeight.w500),
             ),
+
             Text(
               DateFormat('h:mm a').format(timestamp),
               style: TextStyle(fontSize: 19, fontWeight: FontWeight.w500),

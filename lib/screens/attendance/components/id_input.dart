@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:shop_barcode_scan_v3/api/employee_service.dart';
 import 'package:shop_barcode_scan_v3/providers/employee_provider.dart';
+import 'package:toastification/toastification.dart';
 import 'package:virtual_keypad/virtual_keypad.dart';
 
 final pinLayout = [
@@ -50,22 +52,28 @@ class _IdInputState extends ConsumerState<IdInput> {
       setState(() {
         isLoading = false;
       });
-
       ref.read(employeeProvider.notifier).setEmployee(res);
     } else {
       setState(() {
         isLoading = false;
       });
-      // idController.clear();
-      ScaffoldMessenger.of(context)
-          .showSnackBar(
-            SnackBar(
-              content: Text('No Valid Employee'),
-              backgroundColor: Colors.redAccent,
-            ),
-          )
-          .closed
-          .then((value) => {idController.clear(), focusNode.requestFocus()});
+      if (context.mounted) {
+        toastification.show(
+          title: Text('Check ID Number'),
+          autoCloseDuration: const Duration(seconds: 2),
+          type: ToastificationType.error,
+          style: ToastificationStyle.fillColored,
+          alignment: Alignment.bottomCenter,
+          icon: FaIcon(FontAwesomeIcons.exclamation),
+          callbacks: ToastificationCallbacks(
+            onAutoCompleteCompleted: (value) {
+              // ref.watch(employeeProvider.notifier).clearEmployee();
+              idController.clear();
+              focusNode.requestFocus();
+            },
+          ),
+        );
+      }
     }
   }
 
@@ -96,9 +104,9 @@ class _IdInputState extends ConsumerState<IdInput> {
 
               decoration: InputDecoration(
                 label: Text('ID Number'),
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(9),
-                ),
+                // border: OutlineInputBorder(
+                //   borderRadius: BorderRadius.circular(9),
+                // ),
               ),
               style: TextStyle(fontSize: 40, letterSpacing: 0.2),
               controller: idController,

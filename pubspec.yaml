@@ -49,6 +49,8 @@ dependencies:
   timelines_plus: ^2.0.1
   flutter_slidable: ^5.2.0
   toggle_switch: ^2.3.0
+  google_fonts: ^9.0.0
+  signature: ^6.4.0
 dev_dependencies:
   flutter_test:
     sdk: flutter

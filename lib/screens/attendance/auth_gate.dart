@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:shop_barcode_scan_v3/api/auth_service.dart';
 import 'package:shop_barcode_scan_v3/screens/attendance/attendance.dart';
 import 'package:shop_barcode_scan_v3/screens/attendance/login/login_page.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';

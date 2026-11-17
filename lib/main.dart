@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
-import 'package:shop_barcode_scan_v3/screens/attendance/attendance.dart';
 import 'package:shop_barcode_scan_v3/screens/attendance/auth_gate.dart';
-import 'package:shop_barcode_scan_v3/screens/attendance/login/login_page.dart';
-// import 'package:shop_barcode_scan_v3/scan_screen.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:toastification/toastification.dart';
 import 'package:virtual_keypad/virtual_keypad.dart';
@@ -33,6 +31,7 @@ class MyApp extends StatelessWidget {
         title: 'Scan Station',
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
+          fontFamily: GoogleFonts.openSans().fontFamily,
           colorScheme: .fromSeed(seedColor: Colors.blue),
           elevatedButtonTheme: ElevatedButtonThemeData(
             style: ButtonStyle(

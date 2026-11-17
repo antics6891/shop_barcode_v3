@@ -1,15 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_confetti/flutter_confetti.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:intl/intl.dart';
 import 'package:shop_barcode_scan_v3/api/auth_service.dart';
 import 'package:shop_barcode_scan_v3/providers/employee_provider.dart';
 import 'package:shop_barcode_scan_v3/providers/error_provider.dart';
 import 'package:shop_barcode_scan_v3/screens/attendance/components/emp_timecard.dart';
 import 'package:shop_barcode_scan_v3/screens/attendance/components/id_input.dart';
-import 'package:shop_barcode_scan_v3/screens/attendance/components/screen_landscape.dart';
-import 'package:shop_barcode_scan_v3/screens/attendance/emp_confirm.dart';
-import 'package:supabase_flutter/supabase_flutter.dart';
+import 'package:shop_barcode_scan_v3/screens/attendance/components/week_fab.dart';
 import 'package:toastification/toastification.dart';
 
 class Attendance extends ConsumerStatefulWidget {
@@ -48,13 +46,10 @@ class _AttendanceState extends ConsumerState<Attendance> {
     });
 
     return Scaffold(
+      floatingActionButton: WeekFab(),
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         actionsPadding: EdgeInsets.only(right: 16),
-        // leading: Text(
-        //   'Attendance Kiosk',
-        //   style: TextStyle(fontSize: 24, fontWeight: FontWeight.w500),
-        // ),
 
         title: StreamBuilder(
           stream: Stream.periodic(Duration(seconds: 1)),
@@ -72,13 +67,13 @@ class _AttendanceState extends ConsumerState<Attendance> {
 
         actions: [
           ref.watch(employeeProvider) == null
-              ? IconButton.filled(
+              ? IconButton(
                   onPressed: () {
                     AuthService().signOut();
                   },
-                  icon: Icon(Icons.logout_outlined, color: Colors.white),
+                  icon: Icon(Icons.logout_outlined),
                 )
-              : IconButton.outlined(
+              : IconButton(
                   color: Colors.transparent,
                   onPressed: () {
                     ref.watch(employeeProvider.notifier).clearEmployee();
@@ -88,7 +83,10 @@ class _AttendanceState extends ConsumerState<Attendance> {
         ],
       ),
       backgroundColor: Colors.white,
-      body: ref.watch(employeeProvider) == null ? IdInput() : EmpTimecard(),
+      body: Padding(
+        padding: EdgeInsetsGeometry.all(20),
+        child: ref.watch(employeeProvider) == null ? IdInput() : EmpTimecard(),
+      ),
     );
   }
 }
