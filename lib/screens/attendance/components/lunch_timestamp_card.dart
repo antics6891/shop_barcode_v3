@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_confetti/flutter_confetti.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shop_barcode_scan_v3/models/timecard.dart';
 import 'package:timelines_plus/timelines_plus.dart';
-import 'package:intl/intl.dart';
 
 class LunchTimestampCard extends ConsumerWidget {
-  TimecardModel? userTimecard;
-  LunchTimestampCard({super.key, this.userTimecard});
+  final TimecardModel? userTimecard;
+  const LunchTimestampCard({super.key, this.userTimecard});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

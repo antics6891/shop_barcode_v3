@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:flutter_slidable/flutter_slidable.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:shop_barcode_scan_v3/api/timecard_service.dart';
 import 'package:shop_barcode_scan_v3/models/timecard.dart';
 import 'package:shop_barcode_scan_v3/providers/employee_provider.dart';
@@ -10,9 +8,7 @@ import 'package:shop_barcode_scan_v3/screens/attendance/components/clock_in_btn.
 import 'package:shop_barcode_scan_v3/screens/attendance/components/clock_out_btn.dart';
 import 'package:shop_barcode_scan_v3/screens/attendance/components/lunch_end_btn.dart';
 import 'package:shop_barcode_scan_v3/screens/attendance/components/lunch_start_btn.dart';
-import 'package:shop_barcode_scan_v3/screens/attendance/components/lunch_timestamp_card.dart';
 import 'package:shop_barcode_scan_v3/screens/attendance/components/timestamp_card.dart';
-import 'package:toggle_switch/toggle_switch.dart';
 
 class EmpTimecard extends ConsumerStatefulWidget {
   const EmpTimecard({super.key});
@@ -38,7 +34,7 @@ class _IdInputState extends ConsumerState<EmpTimecard> {
             : TimecardModel.fromJson(response);
       });
     } on Exception catch (e) {
-      print(e);
+      throw Exception(e);
     }
   }
 
@@ -107,7 +103,7 @@ class _IdInputState extends ConsumerState<EmpTimecard> {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.center,
-        spacing: 8,
+        spacing: 24,
         // mainAxisAlignment: MainAxisAlignment.center,
         // crossAxisAlignment: CrossAxisAlignment.center,
         children: AnimateList(
@@ -132,16 +128,6 @@ class _IdInputState extends ConsumerState<EmpTimecard> {
           // mainAxisAlignment: MainAxisAlignment.spaceAround,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  'Daily Timecard',
-                  style: TextStyle(fontSize: 21, fontWeight: FontWeight(600)),
-                ),
-              ],
-            ),
-            Divider(),
             Column(
               children: [
                 Row(
@@ -178,6 +164,18 @@ class _IdInputState extends ConsumerState<EmpTimecard> {
                 Divider(),
               ],
             ),
+            SizedBox(height: 17),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  'Daily Timecard',
+                  style: TextStyle(fontSize: 17, fontWeight: FontWeight(300)),
+                ),
+              ],
+            ),
+            SizedBox(height: 17),
+
             isLoading ? CircularProgressIndicator() : buildActionBtns(),
           ],
         ),

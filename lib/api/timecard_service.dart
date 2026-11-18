@@ -8,7 +8,6 @@ class TimecardService {
       today.month,
       today.day,
     ).toIso8601String();
-    print(formattedDate);
     List<Map<String, dynamic>> response = await Supabase.instance.client
         .from('attendance')
         .select()
@@ -16,7 +15,6 @@ class TimecardService {
         .gte('created_at', formattedDate);
 
     if (response.isNotEmpty) {
-      print(response);
       return response.first;
     } else {
       return null;
@@ -39,6 +37,35 @@ class TimecardService {
       'created_at': dateOnly,
     }).select();
 
+    return what;
+  }
+
+  Future<List<Map<String, dynamic>>> startLunch(String docUuid) async {
+    final what = await Supabase.instance.client
+        .from('attendance')
+        .update({'lunch_start': DateTime.now().toIso8601String()})
+        .eq('uuid', docUuid)
+        .select();
+
+    return what;
+  }
+
+  Future<List<Map<String, dynamic>>> endLunch(String docUuid) async {
+    final what = await Supabase.instance.client
+        .from('attendance')
+        .update({'lunch_end': DateTime.now().toIso8601String()})
+        .eq('uuid', docUuid)
+        .select();
+
+    return what;
+  }
+
+  Future<List<Map<String, dynamic>>> endDay(String docUuid) async {
+    final what = await Supabase.instance.client
+        .from('attendance')
+        .update({'clock_out': DateTime.now().toIso8601String()})
+        .eq('uuid', docUuid)
+        .select();
     return what;
   }
 }

@@ -234,7 +234,7 @@ return $default(_that.id,_that.uuid,_that.clock_in,_that.clock_out,_that.lunch_s
 @JsonSerializable()
 
 class _Timecard with DiagnosticableTreeMixin implements TimecardModel {
-  const _Timecard({required this.id, required this.uuid, this.clock_in, this.clock_out, this.lunch_start, this.lunch_end});
+  const _Timecard({required this.id, required this.uuid, required this.clock_in, required this.clock_out, required this.lunch_start, required this.lunch_end});
   factory _Timecard.fromJson(Map<String, dynamic> json) => _$TimecardFromJson(json);
 
 @override final  int id;

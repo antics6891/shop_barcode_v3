@@ -114,14 +114,14 @@ class _IdInputState extends ConsumerState<IdInput> {
             VirtualKeypad(
               theme: VirtualKeypadTheme(
                 backgroundColor: Colors.white,
-                keyColor: Colors.grey.shade500,
+                keyColor: Colors.white70,
                 keyTextSize: 30,
-                keyTextColor: Colors.white,
-                keyShadow: true,
+                keyTextColor: Colors.black87,
+                // keyShadow: true,
                 verticalGap: 10,
                 horizontalGap: 10,
                 actionKeyColor: Colors.blue.shade600,
-                keyBorderRadius: 10,
+                keyBorderRadius: 8,
               ),
 
               customLayout: pinLayout,

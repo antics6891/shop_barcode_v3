@@ -1,3 +1,5 @@
+// ignore_for_file: non_constant_identifier_names
+
 import 'package:flutter/foundation.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
@@ -9,10 +11,10 @@ abstract class TimecardModel with _$TimecardModel {
   const factory TimecardModel({
     required int id,
     required String uuid,
-    DateTime? clock_in,
-    DateTime? clock_out,
-    DateTime? lunch_start,
-    DateTime? lunch_end,
+    required DateTime? clock_in,
+    required DateTime? clock_out,
+    required DateTime? lunch_start,
+    required DateTime? lunch_end,
   }) = _Timecard;
 
   factory TimecardModel.fromJson(Map<String, dynamic> json) =>

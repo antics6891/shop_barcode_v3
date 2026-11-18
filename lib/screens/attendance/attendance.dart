@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:intl/intl.dart';
 import 'package:shop_barcode_scan_v3/api/auth_service.dart';
 import 'package:shop_barcode_scan_v3/providers/employee_provider.dart';
@@ -46,9 +45,12 @@ class _AttendanceState extends ConsumerState<Attendance> {
     });
 
     return Scaffold(
-      floatingActionButton: WeekFab(),
+      // floatingActionButton: WeekFab(),
       appBar: AppBar(
-        backgroundColor: Colors.transparent,
+        backgroundColor: Colors.white,
+        surfaceTintColor: Colors.white,
+        shadowColor: Colors.grey.shade200,
+        elevation: 2,
         actionsPadding: EdgeInsets.only(right: 16),
 
         title: StreamBuilder(
@@ -63,7 +65,6 @@ class _AttendanceState extends ConsumerState<Attendance> {
             );
           },
         ),
-        centerTitle: true,
 
         actions: [
           ref.watch(employeeProvider) == null
